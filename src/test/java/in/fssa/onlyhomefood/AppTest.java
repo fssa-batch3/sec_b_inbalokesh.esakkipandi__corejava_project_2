@@ -1,4 +1,4 @@
-package in.fwsa.demoapp;
+package in.fssa.onlyhomefood;
 
 public class AppTest {
 
