@@ -5,13 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import in.fssa.onlyhomefood.exception.PersistanceException;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
 public class UserDAO {
-	
-	
-	public void create(User newUser) throws Exception,SQLException {
+
+	public void create(User newUser) throws PersistanceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -26,18 +26,15 @@ public class UserDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next() == true) {
-				throw new Exception("User already exist");
+				throw new PersistanceException("User already exist");
 			}
-			
-		}catch(SQLException e){
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e);
-			throw new Exception(e);
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println(e);
-			throw new Exception(e);
-			
+			throw new PersistanceException(e.getMessage());
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
 		}
 
 		try {
@@ -55,12 +52,83 @@ public class UserDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
-			throw new RuntimeException();
+//			System.out.println(e.getMessage());
+			throw new PersistanceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
 		}
+	}
 
+	public void update(int id, User updateUser) throws PersistanceException {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			String query = "Update users set user_name = ?, password = ? where id = ?";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+
+			ps.setString(1, updateUser.getName());
+			ps.setString(2, updateUser.getPassword());
+			ps.setInt(3, id);
+
+			ps.executeUpdate();
+			System.out.println("User has been updated sucessfully");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersistanceException(e.getMessage());
+		} finally {
+			ConnectionUtil.close(con, ps);
+		}
+	}
+	
+	// To check whether id is presents
+	public void checkIdExists(int id) throws PersistanceException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "select * from users where is_active = 1 AND id = ?";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+
+			if (rs.next() == false) {
+				throw new PersistanceException("User not found");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersistanceException(e.getMessage());
+		}  finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
+	}
+
+	public void delete(int id) throws PersistanceException {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			String query = "Update users set is_active = 0 where id = ? AND is_active = 1";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+
+			ps.setInt(1, id);
+
+			ps.executeUpdate();
+			System.out.println("User has been deleted sucessfully");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+//			System.out.println(e.getMessage());
+			throw new PersistanceException(e.getMessage());
+		} finally {
+			ConnectionUtil.close(con, ps);
+		}
 	}
 
 }
