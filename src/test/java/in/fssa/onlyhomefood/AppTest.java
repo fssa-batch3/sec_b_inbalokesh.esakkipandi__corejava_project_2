@@ -18,11 +18,10 @@ public class AppTest {
 	public void testCreateUserWithValidInput() {
 
 		UserService userService = new UserService();
-
 		User newUser = new User();
-		newUser.setEmail("in@gmail.com");
+		newUser.setEmail("il@gmail.com");
 		newUser.setName("Inba");
-		newUser.setMobNumber(8888334453l);
+		newUser.setMobNumber(8888834453l);
 		newUser.setPassword("Inba123098");
 
 		assertDoesNotThrow(() -> {
@@ -185,6 +184,27 @@ public class AppTest {
 		assertTrue(expectedMessage.equals(receivedMessage));
 
 	}
+	
+	// Name Pattern check
+	@Test
+	public void testUserWithNameInValidPattern() {
+
+		UserService userService = new UserService();
+		User newUser = new User();
+		newUser.setEmail("inba@gmail.com");
+		newUser.setName("Akil123");
+		newUser.setMobNumber(6234567898l);
+		newUser.setPassword("Inba1234");
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			userService.create(newUser);
+
+		});
+		String expectedMessage = "Invalid Name";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+
+	}
 
 	// Email Pattern check
 	@Test
@@ -207,7 +227,7 @@ public class AppTest {
 
 	}
 
-	// Passowrd Pattern check
+	// Password Pattern check
 	@Test
 	public void testUserWithPasswordInValidPattern() {
 

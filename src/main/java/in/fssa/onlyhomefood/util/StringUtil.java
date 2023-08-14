@@ -7,7 +7,7 @@ import in.fssa.onlyhomefood.exception.ValidationException;
 
 public class StringUtil {
 
-	public static void rejectIfInvaildString(String input, String inputName) throws ValidationException {
+	public static void rejectIfInvalidString(String input, String inputName) throws ValidationException {
 		if (input == null || "".equals(input.trim())) {
 			throw new ValidationException(inputName.concat(" cannot be null or empty"));
 		}
@@ -27,18 +27,17 @@ public class StringUtil {
 		return false;
 	}
 	
-	public static void rejectIfInvalidId(int id, String inputName) throws ValidationException {
-		if(id <= 0) {
-			throw new ValidationException(inputName.concat(" cannot be zero or below zero"));
+//	Patterns
+	public static void rejectIfInvalidName(String name) throws ValidationException {
+		
+		String regex = "[a-zA-Z]{3,}+([ '-][a-zA-Z]+)*";  
+		Pattern pattern = Pattern.compile(regex);  
+		Matcher matcher = pattern.matcher(name);  
+		if(matcher.matches() == false) {
+			throw new ValidationException("Invalid Name");
 		}
 	}
-
-	public static void rejectIfInvalidNumber(long number, String inputNumber) throws ValidationException {
-		if (number < 6000000001l || number > 9999999999l) {
-			throw new ValidationException(inputNumber.concat(" must start between 6 - 9 and have 10 digits"));
-		}
-	}
-	
+		
 	public static void rejectIfInvalidEmail(String email) throws ValidationException {
 		
 		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";  

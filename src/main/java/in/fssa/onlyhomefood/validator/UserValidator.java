@@ -4,6 +4,7 @@ import in.fssa.onlyhomefood.dao.UserDAO;
 import in.fssa.onlyhomefood.exception.PersistanceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.User;
+import in.fssa.onlyhomefood.util.IntUtil;
 import in.fssa.onlyhomefood.util.StringUtil;
 
 public class UserValidator {
@@ -14,11 +15,13 @@ public class UserValidator {
 			throw new ValidationException("Invalid User Input");
 		}
 
-		StringUtil.rejectIfInvaildString(user.getEmail(), "Email");
-		StringUtil.rejectIfInvaildString(user.getName(), "Name");
-		StringUtil.rejectIfInvaildString(user.getPassword(), "Password");
-		StringUtil.rejectIfInvalidNumber(user.getMobNumber(), "Mobile Number");
-
+		StringUtil.rejectIfInvalidString(user.getEmail(), "Email");
+		StringUtil.rejectIfInvalidString(user.getName(), "Name");
+		StringUtil.rejectIfInvalidString(user.getPassword(), "Password");
+		IntUtil.rejectIfInvalidNumber(user.getMobNumber(), "Mobile Number");
+		
+		
+		StringUtil.rejectIfInvalidName(user.getName());
 		StringUtil.rejectIfInvalidEmail(user.getEmail());
 		StringUtil.rejectIfInvalidPassword(user.getPassword());
 	}
@@ -26,11 +29,10 @@ public class UserValidator {
 	public static void isIdValid(int id) throws ValidationException {
 		
 		try {
-			StringUtil.rejectIfInvalidId(id, "User Id");
+			IntUtil.rejectIfInvalidId(id, "User Id");
 			UserDAO userDao = new UserDAO();
 			userDao.checkIdExists(id);
 		} catch (PersistanceException e) {
-//			e.printStackTrace();
 			throw new ValidationException(e.getMessage());
 		}
 		
