@@ -13,7 +13,7 @@ import in.fssa.onlyhomefood.service.UserService;
 public class TestUpdateUser {
 
 	@Test
-	public void testCreateUserWithValidInput() {
+	public void testUpdateUserWithValidInput() {
 
 		UserService userService = new UserService();
 
@@ -30,7 +30,7 @@ public class TestUpdateUser {
 
 	// Invalid Input
 	@Test
-	public void testCreateUserWithInvaidInput() {
+	public void testUpdateUserWithInvaidInput() {
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.update(0, null);

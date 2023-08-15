@@ -22,4 +22,5 @@ public class IntUtil {
 			throw new ValidationException(inputQuanity.concat(" must be below 1000"));
 		}
 	}
+	
 }

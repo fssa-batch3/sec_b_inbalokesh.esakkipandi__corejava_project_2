@@ -5,6 +5,7 @@ public class ProductEntity {
 	private int id;
 	private String name;
 	private String type;
+	private int price;
 	private int quantity;
 	private String quantityType;
 	private boolean is_active;
@@ -33,6 +34,14 @@ public class ProductEntity {
 		return type;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -44,7 +53,7 @@ public class ProductEntity {
 	public void setQuantity(int quanity) {
 		this.quantity = quanity;
 	}
-
+	
 	public String getQuantityType() {
 		return quantityType;
 	}
@@ -61,11 +70,10 @@ public class ProductEntity {
 		this.is_active = is_active;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "ProductEntity [id=" + id + ", name=" + name + ", type=" + type + ", quantity=" + quantity
-				+ ", quantityType=" + quantityType + ", is_active=" + is_active + "]";
+		return "ProductEntity [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", quantity="
+				+ quantity + ", quantityType=" + quantityType + ", is_active=" + is_active + "]";
 	}
 
 	int compareTo(ProductEntity o) {

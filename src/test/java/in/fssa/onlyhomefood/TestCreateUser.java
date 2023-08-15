@@ -11,7 +11,7 @@ import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.service.UserService;
 
-public class AppTest {
+public class TestCreateUser {
 
 	// Valid Input
 	@Test

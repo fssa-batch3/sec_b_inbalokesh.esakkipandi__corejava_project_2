@@ -16,17 +16,17 @@ import in.fssa.onlyhomefood.service.ProductService;
 public class TestGetAllProducts {
 	
 	@Test
-	public void testGetAllUser() {
-
+	public void testGetAllProducts() {
+		
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
-			Set<Product> users = productService.getAll();
-			System.out.println(users);
+			Set<Product> products = productService.getAll();
+			System.out.println(products);
 		});
 	}
 	
 	@Test
-	public void testFindUserWithValidInput() {
+	public void testFindProductWithValidInput() {
 
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
@@ -36,7 +36,7 @@ public class TestGetAllProducts {
 	
 	// Id is Invalid
 	@Test
-	public void testFindUserWithInvalidId() {
+	public void testFindProductWithInvalidId() {
 
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
@@ -61,5 +61,6 @@ public class TestGetAllProducts {
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
+	
 
 }

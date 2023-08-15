@@ -35,7 +35,7 @@ public class ProductDAO{
 				product.setQuantity(rs.getInt("quantity"));
 				product.setQuantityType(rs.getString("quantity_type"));
 				product.setIs_active(rs.getBoolean("is_active"));
-
+				
 				productList.add(product);
 			}
 		} catch (SQLException e) {
@@ -179,16 +179,17 @@ public class ProductDAO{
 		PreparedStatement ps = null;
 
 		try {
-			String query = "Update products set type = ?, quantity = ? , quantity_type where id = ? AND is_active = 1";
+			String query = "Update products set type = ?, quantity = ? , quantity_type = ?, modified_at = NOW() where id = ? AND is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
 			ps.setString(1, updateProduct.getType());
 			ps.setInt(2, updateProduct.getQuantity());
-			ps.setString(2, updateProduct.getQuantityType());
+			ps.setString(3, updateProduct.getQuantityType());
+			ps.setInt(4, id);
 
 			ps.executeUpdate();
-//			System.out.println("Product has been updated sucessfully");
+			System.out.println("Product has been updated sucessfully");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

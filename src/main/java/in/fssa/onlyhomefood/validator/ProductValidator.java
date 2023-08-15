@@ -25,6 +25,7 @@ public class ProductValidator {
 		StringUtil.rejectIfInvalidName(product.getType());
 		StringUtil.rejectIfInvalidName(product.getQuantityType());
 		IntUtil.rejectIfInvalidQuantity(product.getQuantity(), "Quantity");
+		IntUtil.rejectIfInvalidQuantity(product.getPrice(), "Price");
 	}
 	
 	public static void isIdValid(int id) throws ValidationException {

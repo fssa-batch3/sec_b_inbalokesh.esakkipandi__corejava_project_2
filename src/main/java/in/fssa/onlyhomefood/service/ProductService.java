@@ -40,7 +40,7 @@ public class ProductService {
 		return product;
 	}
 	
-	public void create (Product product, int price) throws ValidationException, ServiceException {
+	public void create (Product product) throws ValidationException, ServiceException {
 		
 		int generatedId = -1;
 		Timestamp d = null;
@@ -51,9 +51,43 @@ public class ProductService {
 			ProductValidator.validate(product);
 			generatedId = productDao.create(product);
 			d = productPriceService.getDate(generatedId);
-			productPriceService.create(d, generatedId, price);
+			productPriceService.create(d, generatedId, product.getPrice());
 			
 		} catch (PersistanceException e) {
+			throw new ServiceException(e.getMessage());
+		}
+	}
+	
+	public void update (int id, Product product) throws ValidationException, ServiceException {
+		
+		Timestamp d = null;
+		try {
+			ProductDAO productDao = new ProductDAO();
+			ProductPriceService productPriceService = new ProductPriceService();
+			
+//			Vaidate id and product
+			ProductValidator.validate(product);
+			ProductValidator.isIdValid(id);
+			
+//			Update details
+			productDao.update(id, product);
+			d = productPriceService.getDate(id);
+			productPriceService.update(d, id, product.getPrice());
+			
+		} catch (PersistanceException e) {
+			throw new ServiceException(e.getMessage());
+		}
+		
+	}
+	
+	public void delete(int id) throws ValidationException, ServiceException {
+		
+		try {
+			ProductDAO productDao = new ProductDAO();
+			ProductValidator.isIdValid(id);
+			productDao.delete(id);
+		}catch(PersistanceException e) {
+			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
 	}
