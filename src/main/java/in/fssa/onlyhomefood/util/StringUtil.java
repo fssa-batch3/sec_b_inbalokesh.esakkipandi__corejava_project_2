@@ -34,7 +34,7 @@ public class StringUtil {
 		Pattern pattern = Pattern.compile(regex);  
 		Matcher matcher = pattern.matcher(name);  
 		if(matcher.matches() == false) {
-			throw new ValidationException("Invalid Name");
+			throw new ValidationException("Invalid String Pattern");
 		}
 	}
 		
@@ -57,4 +57,5 @@ public class StringUtil {
 			throw new ValidationException("Password does not match the requested pattern");
 		}
 	}
+	
 }

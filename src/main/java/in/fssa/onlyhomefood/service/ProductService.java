@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 import in.fssa.onlyhomefood.dao.ProductDAO;
+import in.fssa.onlyhomefood.dao.ProductPriceDAO;
 import in.fssa.onlyhomefood.exception.PersistanceException;
 import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
@@ -13,10 +14,17 @@ import in.fssa.onlyhomefood.validator.ProductValidator;
 public class ProductService {
 	
 	public Set<Product> getAll() throws ServiceException {
-		ProductDAO productDao = new ProductDAO();
+		
 		Set<Product> productList = null;
 		try {
+			ProductDAO productDao = new ProductDAO();
+			ProductPriceDAO priceDao = new ProductPriceDAO();
 			productList = productDao.findAll();
+			
+			for(Product list : productList) {
+				int price = priceDao.getPrices(list.getId());
+				list.setPrice(price);
+			}
 			
 		} catch (PersistanceException e) {
 			System.out.println(e);

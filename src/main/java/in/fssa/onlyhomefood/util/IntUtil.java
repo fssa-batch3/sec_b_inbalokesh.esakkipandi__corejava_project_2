@@ -23,4 +23,10 @@ public class IntUtil {
 		}
 	}
 	
+	public static void rejectIfInvalidQuanityOrder(int orderQuantity, String inp) throws ValidationException {
+		if (orderQuantity < 1 || orderQuantity > 10) {
+			throw new ValidationException(inp.concat(" must be below 10"));
+		}
+	}
+	
 }

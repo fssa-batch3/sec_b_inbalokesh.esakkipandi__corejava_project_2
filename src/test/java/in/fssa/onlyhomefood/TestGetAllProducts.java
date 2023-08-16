@@ -21,7 +21,11 @@ public class TestGetAllProducts {
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
 			Set<Product> products = productService.getAll();
-			System.out.println(products);
+			
+			for(Product p : products) {
+				System.out.println(p);
+			}
+			
 		});
 	}
 	

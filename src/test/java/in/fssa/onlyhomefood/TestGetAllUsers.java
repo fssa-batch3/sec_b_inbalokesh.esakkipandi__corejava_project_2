@@ -15,7 +15,7 @@ import in.fssa.onlyhomefood.service.UserService;
 public class TestGetAllUsers {
 	
 	@Test
-	public void testGetAllUser() {
+	public void testGetAllUsers() {
 
 		UserService userService = new UserService();
 		assertDoesNotThrow(() -> {

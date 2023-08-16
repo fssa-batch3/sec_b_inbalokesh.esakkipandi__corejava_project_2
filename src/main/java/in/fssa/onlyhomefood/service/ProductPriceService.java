@@ -66,10 +66,8 @@ public class ProductPriceService {
 			productPriceDao.create(uDate, product_id, price);
 				
 		}catch(PersistanceException e) {
-			throw new ServiceException(e.getMessage());
-			
+			throw new ServiceException(e.getMessage());	
 		}
-		
 	}
 
 }
