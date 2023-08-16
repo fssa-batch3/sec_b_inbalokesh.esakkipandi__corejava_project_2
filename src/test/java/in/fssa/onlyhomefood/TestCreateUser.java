@@ -36,7 +36,7 @@ public class TestCreateUser {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.create(null);
 		});
-		String expectedMessage = "Invalid User Input";
+		String expectedMessage = "User cannot be null";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
@@ -200,7 +200,7 @@ public class TestCreateUser {
 			userService.create(newUser);
 
 		});
-		String expectedMessage = "Invalid Name";
+		String expectedMessage = "Invalid String Pattern";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 
@@ -258,6 +258,27 @@ public class TestCreateUser {
 		newUser.setEmail("inba@gmail.com");
 		newUser.setName("Inba");
 		newUser.setMobNumber(8882334453l);
+		newUser.setPassword("Inba123098");
+
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			userService.create(newUser);
+
+		});
+		String expectedMessage = "User already exist";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+	
+	// User already exist
+	@Test
+	public void testCreateUserPhoneNumberCheck() {
+
+		UserService userService = new UserService();
+
+		User newUser = new User();
+		newUser.setEmail("anna@gmail.com");
+		newUser.setName("Inba");
+		newUser.setMobNumber(8888834453l);
 		newUser.setPassword("Inba123098");
 
 		Exception exception = assertThrows(ServiceException.class, () -> {

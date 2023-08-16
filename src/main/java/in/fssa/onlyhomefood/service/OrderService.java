@@ -31,6 +31,7 @@ public class OrderService {
 		
 		try {
 			OrderValidator.validate(order);
+			OrderValidator.checkIdExist(order);
 			OrderDAO orderDao = new OrderDAO();
 			orderDao.create(order);
 			

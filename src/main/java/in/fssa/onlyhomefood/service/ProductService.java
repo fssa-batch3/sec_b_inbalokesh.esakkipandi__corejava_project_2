@@ -39,7 +39,10 @@ public class ProductService {
 		try {
 			ProductValidator.isIdValid(productId);
 			ProductDAO productDao = new ProductDAO();
+			ProductPriceDAO priceDao = new ProductPriceDAO();
 			product = productDao.findById(productId);
+			int price = priceDao.getPrices(productId);
+			product.setPrice(price);
 			
 		} catch (PersistanceException e) {
 			e.printStackTrace();
@@ -57,6 +60,7 @@ public class ProductService {
 			ProductDAO productDao = new ProductDAO();
 			ProductPriceService productPriceService = new ProductPriceService();
 			ProductValidator.validate(product);
+			productDao.checkNameIsPresent(product);
 			generatedId = productDao.create(product);
 			d = productPriceService.getDate(generatedId);
 			productPriceService.create(d, generatedId, product.getPrice());

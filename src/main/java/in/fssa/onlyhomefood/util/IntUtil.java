@@ -17,15 +17,9 @@ public class IntUtil {
 		}
 	}
 	
-	public static void rejectIfInvalidQuantity(int quantity, String inputQuanity) throws ValidationException {
-		if (quantity < 1 || quantity > 1000) {
-			throw new ValidationException(inputQuanity.concat(" must be below 1000"));
-		}
-	}
-	
-	public static void rejectIfInvalidQuanityOrder(int orderQuantity, String inp) throws ValidationException {
-		if (orderQuantity < 1 || orderQuantity > 10) {
-			throw new ValidationException(inp.concat(" must be below 10"));
+	public static void rejectIfInvalidRange(int range, String inputRange) throws ValidationException {
+		if (range < 1 || range > 1000) {
+			throw new ValidationException(inputRange.concat(" range between 1 and 1000"));
 		}
 	}
 	

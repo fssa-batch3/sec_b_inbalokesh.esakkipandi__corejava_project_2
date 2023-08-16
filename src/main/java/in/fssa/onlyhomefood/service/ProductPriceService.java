@@ -59,7 +59,7 @@ public class ProductPriceService {
 		
 		try {
 			IntUtil.rejectIfInvalidId(price, "Price");
-			IntUtil.rejectIfInvalidQuantity(price, "Price");
+			IntUtil.rejectIfInvalidRange(price, "Set Price");
 			ProductValidator.isIdValid(product_id);	
 			ProductPriceDAO productPriceDao = new ProductPriceDAO();
 			productPriceDao.update(uDate, product_id);

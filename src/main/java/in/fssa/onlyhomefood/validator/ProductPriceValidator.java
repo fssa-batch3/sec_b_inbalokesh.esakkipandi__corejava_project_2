@@ -14,22 +14,8 @@ public class ProductPriceValidator {
 		}
 		
 		IntUtil.rejectIfInvalidId(productPrice.getPrice(), "Price");
-		IntUtil.rejectIfInvalidQuantity(productPrice.getPrice(), "Price");
+		IntUtil.rejectIfInvalidRange(productPrice.getPrice(), "Set Price");
 		
 	}
-	
-//	public static void isIdValid(int id) throws ValidationException {
-//		
-//		try {
-//			IntUtil.rejectIfInvalidId(id, "Product Id");
-//			ProductPriceDAO productPriceDao = new ProductPriceDAO();
-//			productPriceDao.checkIdExists(id);
-//		} catch (PersistanceException e) {
-//			throw new ValidationException(e.getMessage());
-//		}
-//		
-//	}
-	
-	
 
 }

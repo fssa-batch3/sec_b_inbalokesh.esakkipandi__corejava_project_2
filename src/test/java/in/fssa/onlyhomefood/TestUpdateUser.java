@@ -35,7 +35,7 @@ public class TestUpdateUser {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.update(0, null);
 		});
-		String expectedMessage = "Invalid User Input";
+		String expectedMessage = "User cannot be null";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
@@ -120,6 +120,48 @@ public class TestUpdateUser {
 		String expectedMessage = "Name cannot be null or empty";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+	
+	// Name Pattern check
+	@Test
+	public void testUserWithNameInValidPattern() {
+
+		UserService userService = new UserService();
+		User newUser = new User();
+		newUser.setEmail("inba@gmail.com");
+		newUser.setName("Akil123");
+		newUser.setMobNumber(6234567898l);
+		newUser.setPassword("Inba1234");
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			userService.update(1, newUser);
+
+		});
+		String expectedMessage = "Invalid String Pattern";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+
+	}
+	
+	// Password Pattern check
+	@Test
+	public void testUserWithPasswordInValidPattern() {
+
+		UserService userService = new UserService();
+		User newUser = new User();
+		newUser.setEmail("inba@gmail.com");
+		newUser.setName("Akil");
+		newUser.setMobNumber(6234567898l);
+		newUser.setPassword("inba1234");
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			userService.update(1, newUser);
+
+		});
+		String expectedMessage = "Password does not match the requested pattern";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+
 	}
 
 	// Id is Invalid

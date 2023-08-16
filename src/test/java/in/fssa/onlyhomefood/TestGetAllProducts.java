@@ -14,7 +14,7 @@ import in.fssa.onlyhomefood.service.ProductService;
 
 
 public class TestGetAllProducts {
-	
+//	Test Get all products
 	@Test
 	public void testGetAllProducts() {
 		
@@ -28,13 +28,13 @@ public class TestGetAllProducts {
 			
 		});
 	}
-	
+//	Test get product with ID
 	@Test
 	public void testFindProductWithValidInput() {
 
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
-			System.out.println(productService.findById(1));
+			System.out.println(productService.findById(3));
 		});
 	}
 	

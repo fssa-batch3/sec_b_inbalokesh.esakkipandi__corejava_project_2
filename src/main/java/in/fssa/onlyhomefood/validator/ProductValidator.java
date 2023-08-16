@@ -16,16 +16,16 @@ public class ProductValidator {
 		}
 		
 //		Validations
-		StringUtil.rejectIfInvalidString(product.getName(), "Name");
-		StringUtil.rejectIfInvalidString(product.getType(), "Type");
+		StringUtil.rejectIfInvalidString(product.getName(), "Food Name");
+		StringUtil.rejectIfInvalidString(product.getType(), "Food Type");
 		StringUtil.rejectIfInvalidString(product.getQuantityType(), "Quantity type");
 		
 //		Patterns
 		StringUtil.rejectIfInvalidName(product.getName());
 		StringUtil.rejectIfInvalidName(product.getType());
 		StringUtil.rejectIfInvalidName(product.getQuantityType());
-		IntUtil.rejectIfInvalidQuantity(product.getQuantity(), "Quantity");
-		IntUtil.rejectIfInvalidQuantity(product.getPrice(), "Price");
+		IntUtil.rejectIfInvalidRange(product.getQuantity(), "Set Quantity");
+		IntUtil.rejectIfInvalidRange(product.getPrice(), "Set Price");
 	}
 	
 	public static void isIdValid(int id) throws ValidationException {

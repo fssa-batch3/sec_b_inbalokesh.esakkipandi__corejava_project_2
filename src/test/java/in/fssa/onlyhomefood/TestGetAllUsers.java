@@ -20,7 +20,10 @@ public class TestGetAllUsers {
 		UserService userService = new UserService();
 		assertDoesNotThrow(() -> {
 			Set<User> users = userService.getAll();
-			System.out.println(users);
+			for(User u : users) {
+				System.out.println(u);			
+			}
+
 		});
 	}
 	

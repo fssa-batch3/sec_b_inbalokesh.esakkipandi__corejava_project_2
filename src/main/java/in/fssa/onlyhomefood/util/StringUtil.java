@@ -58,4 +58,14 @@ public class StringUtil {
 		}
 	}
 	
+	public static void rejectIfInvalidAddress(String address) throws ValidationException {
+		
+		String regex = "[a-zA-Z0-9.,-/()]+([ -][a-zA-Z0-9.,-/()]+)*";  
+		Pattern pattern = Pattern.compile(regex);  
+		Matcher matcher = pattern.matcher(address);  
+		if(matcher.matches() == false) {
+			throw new ValidationException("Invalid Address Pattern");
+		}
+	}
+	
 }

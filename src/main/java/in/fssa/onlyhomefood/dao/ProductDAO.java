@@ -93,7 +93,7 @@ public class ProductDAO{
 		ResultSet rs = null;
 		
 		try {
-			String query = "select * from products where is_active = 1 AND name=?";
+			String query = "select * from products where name=?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setString(1, product.getName());
@@ -189,7 +189,6 @@ public class ProductDAO{
 			ps.setInt(4, id);
 
 			ps.executeUpdate();
-			System.out.println("Product has been updated sucessfully");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
