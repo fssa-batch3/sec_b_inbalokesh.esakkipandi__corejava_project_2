@@ -16,14 +16,12 @@ public class TestGetAllUsers {
 	
 	@Test
 	public void testGetAllUsers() {
-
 		UserService userService = new UserService();
 		assertDoesNotThrow(() -> {
 			Set<User> users = userService.getAll();
 			for(User u : users) {
 				System.out.println(u);			
 			}
-
 		});
 	}
 	
