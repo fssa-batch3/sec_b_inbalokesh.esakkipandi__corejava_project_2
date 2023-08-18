@@ -93,6 +93,5 @@ public abstract class OrderEntity {
 				+ delivery_time + ", order_status = " + order_status + ", created_by = " + created_by + ", address = "
 				+ address + "]";
 	}
-	
 
 }

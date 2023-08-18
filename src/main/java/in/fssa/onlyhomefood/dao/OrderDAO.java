@@ -14,7 +14,11 @@ import in.fssa.onlyhomefood.model.OrderEntity.OrderStatus;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
 public class OrderDAO {
-	
+	/**
+	 * 
+	 * @param newOrder
+	 * @throws PersistanceException
+	 */
 	public void create(Order newOrder) throws PersistanceException {
 		
 		Connection con = null;
@@ -47,7 +51,11 @@ public class OrderDAO {
 				ConnectionUtil.close(con, ps, rs);
 			}
 	}
-	
+	/**
+	 * 
+	 * @return
+	 * @throws PersistanceException
+	 */
 	public Set<Order> findAll() throws PersistanceException{
 		
 		Connection con = null;

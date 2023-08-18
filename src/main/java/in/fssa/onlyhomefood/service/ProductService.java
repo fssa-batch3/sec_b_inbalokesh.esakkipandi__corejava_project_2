@@ -12,7 +12,11 @@ import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.validator.ProductValidator;
 
 public class ProductService {
-	
+	/**
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 */
 	public Set<Product> getAll() throws ServiceException {
 		
 		Set<Product> productList = null;
@@ -32,7 +36,13 @@ public class ProductService {
 		}
 		return productList;
 	}
-
+	/**
+	 * 
+	 * @param productId
+	 * @return
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public Product findById(int productId) throws ValidationException, ServiceException {
 		
 		Product product = null;
@@ -50,7 +60,12 @@ public class ProductService {
 		}
 		return product;
 	}
-	
+	/**
+	 * 
+	 * @param product
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public void create (Product product) throws ValidationException, ServiceException {
 		
 		int generatedId = -1;
@@ -69,7 +84,13 @@ public class ProductService {
 			throw new ServiceException(e.getMessage());
 		}
 	}
-	
+	/**
+	 * 
+	 * @param id
+	 * @param product
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public void update (int id, Product product) throws ValidationException, ServiceException {
 		
 		Timestamp d = null;
@@ -91,7 +112,12 @@ public class ProductService {
 		}
 		
 	}
-	
+	/**
+	 * 
+	 * @param id
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public void delete(int id) throws ValidationException, ServiceException {
 		
 		try {

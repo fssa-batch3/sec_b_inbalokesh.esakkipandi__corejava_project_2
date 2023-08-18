@@ -6,27 +6,44 @@ import java.util.regex.Pattern;
 import in.fssa.onlyhomefood.exception.ValidationException;
 
 public class StringUtil {
-
+	/**
+	 * 
+	 * @param input
+	 * @param inputName
+	 * @throws ValidationException
+	 */
 	public static void rejectIfInvalidString(String input, String inputName) throws ValidationException {
 		if (input == null || "".equals(input.trim())) {
 			throw new ValidationException(inputName.concat(" cannot be null or empty"));
 		}
 	}
-
+	/**
+	 * 
+	 * @param input
+	 * @return
+	 */
 	public static boolean isValid(String input) {
 		if (input == null || "".equals(input.trim())) {
 			return false;
 		}
 		return true;
 	}
-
+	/**
+	 * 
+	 * @param input
+	 * @return
+	 */
 	public static boolean isInValid(String input) {
 		if (input == null || "".equals(input.trim())) {
 			return true;
 		}
 		return false;
 	}
-	
+	/**
+	 * 
+	 * @param name
+	 * @throws ValidationException
+	 */
 //	Patterns
 	public static void rejectIfInvalidName(String name) throws ValidationException {
 		
@@ -37,7 +54,11 @@ public class StringUtil {
 			throw new ValidationException("Invalid String Pattern");
 		}
 	}
-		
+	/**
+	 * 	
+	 * @param email
+	 * @throws ValidationException
+	 */
 	public static void rejectIfInvalidEmail(String email) throws ValidationException {
 		
 		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";  
@@ -47,7 +68,11 @@ public class StringUtil {
 			throw new ValidationException("Invalid Email Id");
 		}
 	}
-		
+	/**
+	 * 	
+	 * @param password
+	 * @throws ValidationException
+	 */
 	public static void rejectIfInvalidPassword(String password) throws ValidationException {
 		
 		String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
@@ -57,7 +82,11 @@ public class StringUtil {
 			throw new ValidationException("Password does not match the requested pattern");
 		}
 	}
-	
+	/**
+	 * 
+	 * @param address
+	 * @throws ValidationException
+	 */
 	public static void rejectIfInvalidAddress(String address) throws ValidationException {
 		
 		String regex = "[a-zA-Z0-9.,-/()]+([ -][a-zA-Z0-9.,-/()]+)*";  

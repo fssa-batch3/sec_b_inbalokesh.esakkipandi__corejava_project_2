@@ -31,7 +31,7 @@ public class TestGetAllUsers {
 		UserService userService = new UserService();
 
 		assertDoesNotThrow(() -> {
-			System.out.println(userService.findById(2));
+			System.out.println(userService.findById(1));
 		});
 	}
 

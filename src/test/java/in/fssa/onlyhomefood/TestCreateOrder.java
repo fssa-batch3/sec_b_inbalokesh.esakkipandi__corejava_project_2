@@ -22,12 +22,12 @@ public class TestCreateOrder {
 		OrderService orderService = new OrderService();
 		Order newOrder = new Order();
 		newOrder.setQuantity(3);
-		newOrder.setTotal_price(57);
+		newOrder.setTotal_price(54);
 		newOrder.setDelivery_time(DeliveryTime.Breakfast);
 		newOrder.setOrder_status(OrderStatus.Not_delivered);
 		newOrder.setCreated_by(1);
 		newOrder.setAddress("Perugudi Chennai");
-		newOrder.setProduct_id(3);
+		newOrder.setProduct_id(1);
 
 		assertDoesNotThrow(() -> {
 			orderService.create(newOrder);
@@ -138,7 +138,7 @@ public class TestCreateOrder {
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
 	
-//	Test Order Created By Id valid
+//	Test Order Created By Id Invalid
 	@Test
 	public void testCreateOrderWithInvalidUserId() {
 		
@@ -222,7 +222,7 @@ public class TestCreateOrder {
 		newOrder.setTotal_price(57);
 		newOrder.setDelivery_time(DeliveryTime.Breakfast);
 		newOrder.setOrder_status(OrderStatus.Not_delivered);
-		newOrder.setCreated_by(3);
+		newOrder.setCreated_by(1);
 		newOrder.setAddress("Perungudi Chennai");
 		newOrder.setProduct_id(10);
 		

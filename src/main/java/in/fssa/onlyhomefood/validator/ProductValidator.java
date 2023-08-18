@@ -8,7 +8,11 @@ import in.fssa.onlyhomefood.util.IntUtil;
 import in.fssa.onlyhomefood.util.StringUtil;
 
 public class ProductValidator {
-	
+	/**
+	 * 
+	 * @param product
+	 * @throws ValidationException
+	 */
 	public static void validate(Product product) throws ValidationException {
 		
 		if (product == null) {
@@ -27,7 +31,11 @@ public class ProductValidator {
 		IntUtil.rejectIfInvalidRange(product.getQuantity(), "Set Quantity");
 		IntUtil.rejectIfInvalidRange(product.getPrice(), "Set Price");
 	}
-	
+	/**
+	 * 
+	 * @param id
+	 * @throws ValidationException
+	 */
 	public static void isIdValid(int id) throws ValidationException {
 		
 		try {

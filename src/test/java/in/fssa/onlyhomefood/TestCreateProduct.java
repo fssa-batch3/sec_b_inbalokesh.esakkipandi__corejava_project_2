@@ -18,11 +18,11 @@ public class TestCreateProduct {
 
 		ProductService productService = new ProductService();
 		Product product = new Product();
-		product.setName("Dosa");
+		product.setName("Idly");
 		product.setType("Veg");
-		product.setQuantity(2);
+		product.setQuantity(4);
 		product.setPrice(19);
-		product.setQuantityType("Dosa");
+		product.setQuantityType("Idly");
 
 		assertDoesNotThrow(() -> {
 			productService.create(product);
@@ -280,7 +280,7 @@ public class TestCreateProduct {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
-		product.setName("Dosa");
+		product.setName("Idly");
 		product.setType("Veg");
 		product.setQuantity(2);
 		product.setPrice(19);

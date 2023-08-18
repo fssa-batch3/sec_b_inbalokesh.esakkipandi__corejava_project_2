@@ -10,7 +10,11 @@ import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.validator.UserValidator;
 
 public class UserService {
-	
+	/**
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 */
 	public Set<User> getAll() throws ServiceException {
 		UserDAO userDao = new UserDAO();
 		Set<User> userList = null;
@@ -23,7 +27,13 @@ public class UserService {
 		}
 		return userList;
 	}
-	
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public User findById(int userId) throws ValidationException, ServiceException {
 		
 		User user = null;
@@ -39,7 +49,12 @@ public class UserService {
 		return user;
 	}
 	
-
+	/**
+	 * 
+	 * @param newUser
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public void create(User newUser) throws ValidationException, ServiceException {
 
 		try {
@@ -51,7 +66,13 @@ public class UserService {
 			throw new ServiceException(e.getMessage());
 		}
 	}
-
+	/**
+	 * 
+	 * @param id
+	 * @param updateUser
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public void update(int id, User updateUser) throws ValidationException, ServiceException {
 
 		try {
@@ -65,7 +86,12 @@ public class UserService {
 			throw new ServiceException("Failed to " + e.getMessage());
 		}
 	}
-
+	/**
+	 * 
+	 * @param id
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public void delete(int id) throws ValidationException, ServiceException {
 
 		try {

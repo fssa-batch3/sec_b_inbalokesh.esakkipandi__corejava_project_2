@@ -9,7 +9,10 @@ import java.sql.SQLException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConnectionUtil {
-
+	/**
+	 * 
+	 * @return
+	 */
 	public static Connection getConnection() {
 
 		String url;
@@ -39,7 +42,12 @@ public class ConnectionUtil {
 		}
 		return connection;
 	}
-
+	/**
+	 * 
+	 * @param connection
+	 * @param ps
+	 * @param rs
+	 */
 	public static void close(Connection connection, PreparedStatement ps, ResultSet rs) {
 		try {
 			if (rs != null) {
@@ -55,7 +63,10 @@ public class ConnectionUtil {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * @param connection
+	 * @param ps
+	 */
 	public static void close(Connection connection, PreparedStatement ps) {
 		try {
 			if (ps != null) {

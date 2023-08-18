@@ -9,13 +9,22 @@ import in.fssa.onlyhomefood.util.IntUtil;
 import in.fssa.onlyhomefood.util.StringUtil;
 
 public class OrderValidator {
-	
+	/**
+	 * 
+	 * @param orderQuantity
+	 * @param inp
+	 * @throws ValidationException
+	 */
 	public static void rejectIfInvalidQuanityOrder(int orderQuantity, String inp) throws ValidationException {
 		if (orderQuantity < 1 || orderQuantity > 10) {
 			throw new ValidationException(inp.concat(" must be below 10"));
 		}
 	}
-	
+	/**
+	 * 
+	 * @param order
+	 * @throws ValidationException
+	 */
 	public static void validate(Order order) throws ValidationException {
 		
 		if (order == null) {
@@ -41,7 +50,11 @@ public class OrderValidator {
 		
 		
 	}
-	
+	/**
+	 * 
+	 * @param order
+	 * @throws ValidationException
+	 */
 	public static void checkIdExist(Order order) throws ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();

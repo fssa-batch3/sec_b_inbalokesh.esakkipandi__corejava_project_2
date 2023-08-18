@@ -10,7 +10,11 @@ import in.fssa.onlyhomefood.model.Order;
 import in.fssa.onlyhomefood.validator.OrderValidator;
 
 public class OrderService {
-	
+	/**
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 */
 	public Set<Order> getAll() throws ServiceException {
 		
 		Set<Order> orderList = null;
@@ -26,7 +30,12 @@ public class OrderService {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param order
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
 	public void create (Order order) throws ValidationException, ServiceException {
 		
 		try {

@@ -17,7 +17,7 @@ public class TestDeleteUser {
 		UserService userService = new UserService();
 
 		assertDoesNotThrow(() -> {
-			userService.delete(3);
+			userService.delete(1);
 		});
 	}
 

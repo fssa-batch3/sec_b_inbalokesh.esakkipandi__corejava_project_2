@@ -8,7 +8,11 @@ import in.fssa.onlyhomefood.util.IntUtil;
 import in.fssa.onlyhomefood.util.StringUtil;
 
 public class UserValidator {
-
+	/**
+	 * 
+	 * @param user
+	 * @throws ValidationException
+	 */
 	public static void validate(User user) throws ValidationException {
 
 		if (user == null) {
@@ -25,7 +29,11 @@ public class UserValidator {
 		StringUtil.rejectIfInvalidEmail(user.getEmail());
 		StringUtil.rejectIfInvalidPassword(user.getPassword());
 	}
-
+	/**
+	 * 
+	 * @param id
+	 * @throws ValidationException
+	 */
 	public static void isIdValid(int id) throws ValidationException {
 		
 		try {

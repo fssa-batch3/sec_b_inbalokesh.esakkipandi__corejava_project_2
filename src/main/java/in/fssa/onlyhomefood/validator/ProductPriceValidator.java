@@ -6,7 +6,11 @@ import in.fssa.onlyhomefood.util.IntUtil;
 
 
 public class ProductPriceValidator {
-	
+	/**
+	 * 
+	 * @param productPrice
+	 * @throws ValidationException
+	 */
 	public static void validate(ProductPrice productPrice) throws ValidationException {
 		
 		if (productPrice == null) {

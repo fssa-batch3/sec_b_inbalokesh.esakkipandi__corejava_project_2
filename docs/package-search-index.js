@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"in.fssa.onlyhomefood.exception"},{"l":"in.fssa.onlyhomefood.Interface"},{"l":"in.fssa.onlyhomefood.model"},{"l":"in.fssa.onlyhomefood.service"},{"l":"in.fssa.onlyhomefood.util"},{"l":"in.fssa.onlyhomefood.validator"}];updateSearchResults();

@@ -34,7 +34,7 @@ public class TestGetAllProducts {
 
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
-			System.out.println(productService.findById(3));
+			System.out.println(productService.findById(1));
 		});
 	}
 	

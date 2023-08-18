@@ -13,7 +13,11 @@ import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
 public class ProductDAO{
-	
+	/**
+	 * 
+	 * @return
+	 * @throws PersistanceException
+	 */
 //	Find all products
 	public Set<Product> findAll() throws PersistanceException {
 
@@ -48,7 +52,12 @@ public class ProductDAO{
 		}
 		return productList;
 	}
-	
+	/**
+	 * 
+	 * @param productId
+	 * @return
+	 * @throws PersistanceException
+	 */
 //	Find products by id
 	public Product findById(int productId) throws PersistanceException {
 		
@@ -84,7 +93,11 @@ public class ProductDAO{
 		}
 		return product;
 	}
-	
+	/**
+	 * 
+	 * @param product
+	 * @throws PersistanceException
+	 */
 //	Check whether same name is present
 	public void checkNameIsPresent(Product product) throws PersistanceException {
 		
@@ -111,7 +124,12 @@ public class ProductDAO{
 			ConnectionUtil.close(con, ps, rs);
 		}
 	}
-	
+	/**
+	 * 
+	 * @param newProduct
+	 * @return
+	 * @throws PersistanceException
+	 */
 //	Create new product
 	public int create(Product newProduct) throws PersistanceException {
 
@@ -147,7 +165,11 @@ public class ProductDAO{
 		}
 		return generatedId;
 	}
-	
+	/**
+	 * 
+	 * @param id
+	 * @throws PersistanceException
+	 */
 	// To check whether id is presents
 	public void checkIdExists(int id) throws PersistanceException {
 		Connection con = null;
@@ -171,7 +193,12 @@ public class ProductDAO{
 			ConnectionUtil.close(con, ps, rs);
 		}
 	}
-	
+	/**
+	 * 
+	 * @param id
+	 * @param updateProduct
+	 * @throws PersistanceException
+	 */
 //	Update product
 	public void update(int id, Product updateProduct) throws PersistanceException {
 
@@ -197,7 +224,11 @@ public class ProductDAO{
 			ConnectionUtil.close(con, ps);
 		}
 	}
-	
+	/**
+	 * 
+	 * @param id
+	 * @throws PersistanceException
+	 */
 	public void delete(int id) throws PersistanceException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -219,6 +250,4 @@ public class ProductDAO{
 			ConnectionUtil.close(con, ps);
 		}
 	}
-	
-
 }

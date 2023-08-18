@@ -13,7 +13,10 @@ import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
 public class UserDAO implements UserInterface {
-	
+	/**
+	 * @return 
+	 * @throws PersistanceException
+	 */
 	public Set<User> findAll() throws PersistanceException {
 
 		Connection con = null;
@@ -47,7 +50,11 @@ public class UserDAO implements UserInterface {
 		}
 		return userList;
 	}
-	
+	/**
+	 * @return
+	 * @param userId
+	 * @throws PersistanceException
+	 */
 	public User findById(int userId) throws PersistanceException {
 
 		Connection con = null;
@@ -81,7 +88,10 @@ public class UserDAO implements UserInterface {
 		}
 		return user;
 	}
-
+	/**
+	 * @param newUser
+	 * @throws PersistanceException
+	 */
 	public void create(User newUser) throws PersistanceException {
 
 		Connection con = null;
@@ -129,7 +139,11 @@ public class UserDAO implements UserInterface {
 			ConnectionUtil.close(con, ps);
 		}
 	}
-
+	/**
+	 * @param id
+	 * @param updateUser
+	 * @throws PersistanceException
+	 */
 	public void update(int id, User updateUser) throws PersistanceException {
 
 		Connection con = null;
@@ -155,6 +169,11 @@ public class UserDAO implements UserInterface {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @throws PersistanceException
+	 */
 	// To check whether id is presents
 	public void checkIdExists(int id) throws PersistanceException {
 		Connection con = null;
@@ -178,7 +197,10 @@ public class UserDAO implements UserInterface {
 			ConnectionUtil.close(con, ps, rs);
 		}
 	}
-
+	/**
+	 * @param id
+	 * @throws PersistanceException
+	 */
 	public void delete(int id) throws PersistanceException {
 		Connection con = null;
 		PreparedStatement ps = null;

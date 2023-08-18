@@ -13,7 +13,11 @@ import in.fssa.onlyhomefood.model.ProductPrice;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
 public class ProductPriceDAO {
-
+	/**
+	 * 
+	 * @return
+	 * @throws PersistanceException
+	 */
 //	Find all products
 	public Set<ProductPrice> findAll() throws PersistanceException {
 
@@ -47,7 +51,12 @@ public class ProductPriceDAO {
 		}
 		return productPriceList;
 	}
-
+	/**
+	 * 
+	 * @param product_id
+	 * @return
+	 * @throws PersistanceException
+	 */
 	public Timestamp getDate(int product_id) throws PersistanceException {
 
 		Connection con = null;
@@ -75,7 +84,13 @@ public class ProductPriceDAO {
 		}
 		return updateDate;
 	}
-
+	/**
+	 * 
+	 * @param updateDate
+	 * @param product_id
+	 * @param price
+	 * @throws PersistanceException
+	 */
 	public void create(Timestamp updateDate, int product_id, int price) throws PersistanceException {
 
 		Connection con = null;
@@ -103,7 +118,12 @@ public class ProductPriceDAO {
 		}
 
 	}
-
+	/**
+	 * 
+	 * @param updateDate
+	 * @param product_id
+	 * @throws PersistanceException
+	 */
 	public void update(Timestamp updateDate, int product_id) throws PersistanceException {
 
 		Connection con = null;
@@ -126,7 +146,12 @@ public class ProductPriceDAO {
 			ConnectionUtil.close(con, ps);
 		}
 	}
-
+	/**
+	 * 
+	 * @param productId
+	 * @return
+	 * @throws PersistanceException
+	 */
 	public int getPrices(int productId) throws PersistanceException {
 
 		Connection con = null;
