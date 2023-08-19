@@ -194,11 +194,11 @@ graph TD;
   C -- Valid --> D["Create Product (Returns Product id)"]
   C -- Invalid --> F[Validation Exception]
   D --> E[Product Price Service: Create Price]
-  E --> H[Form Validation] -- Valid --> I{BusinesValidation}
+  E --> H[Form Validation] -- Valid --> I{Business Validation}
   H -- Invalid --> J[Validation Exception]
   I -- Valid --> K[Create Price]
   I -- Invalid --> L[Validation Exception]
-  K --> M[Product Created Sucessfully]
+  K --> M[Product Created Successfully]
   
 ```
 
@@ -260,11 +260,11 @@ graph TD;
   C -- Yes --> D["Update Product"]
   C -- No --> F["Validation Exception"]
   D --> E[Product Price Service: Update Price]
-  E --> H[Form Validation] -- Valid --> I{BusinesValidation}
+  E --> H[Form Validation] -- Valid --> I{Business Validation}
   H -- Invalid --> J[Validation Exception]
   I -- Valid --> K[Update Price and date]
   I -- Invalid --> L[Validation Exception]
-  K --> M[Product Updated Sucessfully]
+  K --> M[Product Updated Successfully]
 ```
 
 ### Feature 4: Delete Product
