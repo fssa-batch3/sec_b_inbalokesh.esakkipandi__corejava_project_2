@@ -4,8 +4,7 @@
 
 - [ ] Create an ER diagram of the database
 - [ ] Write Create table scripts [script](/src/main/resources/db/migration/V1__create_users.sql)
-
-[ER Diagram](path/to/ER/diagram)
+- [ ] [ ER DIAGRAM![HbqqXef.md.png](https://iili.io/HbqqXef.md.png)](https://freeimage.host/i/HbqqXef)
 
 ## Project Setup
 
@@ -24,57 +23,64 @@
 
 ### Feature 1: Create User
 
+#### User Story:
+User can create his new account
+
 #### Pre-requisites:
 
-- [ ] user DAO (create) 
-- [ ] user Service (create)
+- [ ] User DAO (create) 
+- [ ] User Service (create)
 
 #### Validations:
 
 - [ ] Form Validation
 		- user null
-		- user_name null or empty
-		- email null or empty
-		- password null or empty
+		- name (null, empty, pattern)
+		- email  (null, empty, pattern)
+		- password  (null, empty, pattern)
 		- phone_number (length >= 60000000001 and length <= 9999999999)
 
 - [ ] Business Validation
-		- phone_number (check)
+		- phone_number or Email Already Exist
 
 #### Messages:
 - [ ] User cannot be null
 - [ ] Name cannot be null or empty
-- [ ] email cannot be null or empty
-- [ ] password cannot be null or empty
-- [ ] Invalid email Id
-- [ ] Invalid phone number (Number must start between 6 - 9)
+- [ ] Email cannot be null or empty
+- [ ] Password cannot be null or empty
+- [ ] Invalid Email Id
+- [ ] Mobile Number must start between 6 - 9 and have 10 digits
+- [ ] Invalid String Pattern
 - [ ] Password does not match the requested pattern
-- [ ] Phone number already exist
+- [ ] User already exist
 
 #### Flow: 
 ```mermaid
 graph TD;
   A["User Service: Create new User(User user)"] --> B["Form Validation"] -- Valid --> C{Business Validation}
   B -- Invaild --> G[Validation Exception]
-  C -- Yes --> D["Create User"]
+  C -- Valid --> D["Create User"]
   D --> E["New User Created"]
-  C -- No --> F["Validation Exception"]
+  C -- Invalid --> F["Validation Exception"]
 ```
 
 ### Feature 2: Update User
 
+#### User Story
+Existing User can update his details
+
 #### Pre-requisites:
 
-- [ ] user DAO (update) 
-- [ ] user Service (update)
+- [ ] User DAO (update) 
+- [ ] User Service (update)
 
 #### Validations:
 
 - [ ] Form Validation
-		- user null
 		- id <= 0
-		- user_name null or empty
-		- password null or empty
+		- User null
+		- name (null, empty, pattern)
+		- password  (null, empty, pattern)
 
 - [ ] Business Validation
 		- Check Id is present
@@ -83,136 +89,168 @@ graph TD;
 - [ ] User cannot be null
 - [ ] Name cannot be null or empty
 - [ ] password cannot be null or empty
+- [ ] User Id cannot be zero or below zero
+- [ ] Invalid String Pattern
 - [ ] Password does not match the requested pattern
-- [ ] User not found check the given id
+- [ ] User not found
 
 #### Flow: 
 ```mermaid
 graph TD;
-  A["User Service: Update Existing User"] --> B["Form Validation"]-- YES --> C{Business Validation}
-  B -- NO --> G["Validation Exception"]
-  C -- Yes --> D["Update User"]
-  D --> E["User Updated"]
-  C -- No --> F["Validation Exception"]
+  A["User Service: Update Existing User"] --> B["Form Validation"]-- Valid --> C{Business Validation}
+  B -- Invalid--> G["Validation Exception"]
+  C -- Valid --> D["Update User"]
+  C -- Invalid --> F["Validation Exception"]
+  D --> E["User Details Updated"]
 ```
 
 ### Feature 3: Delete User
 
+#### User Story
+User can inactive his account
+
 #### Pre-requisites:
 
-- [ ] user DAO (delete) 
-- [ ] user Service (delete)
+- [ ] User DAO (delete) 
+- [ ] User Service (delete)
 
 #### Validations:
 
 - [ ] Form Validation
 		- id <= 0
-		- is_active = 0
+		- is active = 0
 
 - [ ] Business Validation
 		- Check Id is present
 
 #### Messages:
-- [ ] Invalid Id
-- [ ] User not found check the given id
+- [ ] User Id cannot be zero or below zero
+- [ ] User not found
 
 #### Flow: 
 ```mermaid
 graph TD;
   A["User Service: Delete User"] --> B["Form Validation"]
-  B -- YES--> C{Business Validation}
-  B -- NO --> G[Validation Exception]
-  C -- Yes --> D[Delete User]
+  B -- Valid --> C{Business Validation}
+  B -- Invalid--> G[Validation Exception]
+  C -- Valid --> D[Delete User]
+  C -- Invalid --> F[Validation Exception]
   D --> E[User Deleted]
-  C -- No --> F[Validation Exception]
 ```
 
 
 ## Module: Products
 
 - [ ] Create Product table
-- [ ] Create ProductPrice table
+- [ ] Create Product Price table
 - [ ] Create Product model
+- [ ] Create Product Price model
 
 ### Feature 1: Create Product
 
+Create new Product
+
 #### Pre-requisites:
 
-- [ ] product DAO (create) 
-- [ ] product Service (create)
+- [ ] Product DAO (create) 
+- [ ] Product Price DAO (create)
+- [ ] Product Price Service (create)
+- [ ] Product Service (create)
 
 #### Validations:
 
 - [ ] Form Validation
 		- product null
-		- food_name null or empty
-		- food_type null or empty
-		- description null or empty
+		- name (null, empty, pattern)
+		- food_type (null, empty, pattern)
+		- quantity_type (null, empty, pattern)
 		- price <= 0 and price >= 1000
+		- quantity<= 0 and quantity>= 1000
+		- id <=0
 
 - [ ] Business Validation
-		- Food Name(check)
+		- Check Food name already exist
+		- Check Product Id already exist
 
 #### Messages:
 
 - [ ] Product cannot be null
 - [ ] Name cannot be null or empty
 - [ ] Food type cannot be null or empty
-- [ ] Description cannot be null or empty
-- [ ] Price should be between 1 and 999
-- [ ] Product already found check the name
+- [ ] Quantity type cannot be null or empty
+- [ ] Price cannot be zero or below zero
+- [ ] Quantity cannot be zero or below zero
+- [ ] Set Price range between 1 and 1000
+- [ ] Set Quantity range between 1 and 1000
+- [ ] Invalid String Pattern
+- [ ] Product already exist
 
 #### Flow: 
 ```mermaid
 graph TD;
-  A["Product Service: Create new Product"] --> B["Form Validation"] -- YES --> C{Business Validation}
-  B -- NO --> G[Validation Exception]
-  C -- Yes --> D[Create Product]
-  D --> E[New Product Created]
-  C -- No --> F[Validation Exception]
+  A["Product Service: Create New Product"] --> 
+  B["Form Validation"] -- Valid--> C{Business Validation}
+  B -- Invalid --> G[Validation Exception]
+  C -- Valid --> D["Create Product (Returns Product id)"]
+  C -- Invalid --> F[Validation Exception]
+  D --> E[Product Price Service: Create Price]
+  E --> H[Form Validation] -- Valid --> I{BusinesValidation}
+  H -- Invalid --> J[Validation Exception]
+  I -- Valid --> K[Create Price]
+  I -- Invalid --> L[Validation Exception]
+  K --> M[Product Created Sucessfully]
+  
 ```
 
 ### Feature 2:  List All Products
 
 #### Pre-requisites:
 - [ ] Product Service(getAll)
+- [ ] Product Price DAO(getPrices)
 - [ ] Product DAO(findAll)
 
 #### Flow: 
 ```mermaid
 graph TD;
   A["Product Service: GetAll Product"] --> B["FindAll User"]
-  B -- Yes --> C["Return all Products"]
+  B -- Yes --> C[Product Price DAO : GetPrice]
   B -- No --> D["Return null"]
+  C --> E[Returns All Product]
 ```
 
 ### Feature 3: Update Product
 
 #### Pre-requisites:
 
-- [ ] product DAO (update) 
-- [ ] product Service (update)
+- [ ] Product DAO (update) 
+- [ ] Product Service (update)
+- [ ] Product Price Service (update)
 
 #### Validations:
 
 - [ ] Form Validation
 		- product null
 		- id <= 0
-		- food_name null or empty
-		- food_name null or empty
-		- description null or empty
+		- name (null, empty, pattern)
+		- food_type (null, empty, pattern)
+		- quantity_type (null, empty, pattern)
 		- price <= 0 and price >= 1000
+		- quantity<= 0 and quantity>= 1000
 
 - [ ] Business Validation
 		- Check product Id is present
 	
 #### Messages:
 - [ ] Product cannot be null
-- [ ] Name cannot be null or empty
 - [ ] Food type cannot be null or empty
-- [ ] Description cannot be null or empty
-- [ ] Price should be between 1 and 999
-- [ ] Product not found check the given Id
+- [ ] Quantity type cannot be null or empty
+- [ ] Product Id cannot be zero or below zero
+- [ ] Price cannot be zero or below zero
+- [ ] Quantity cannot be zero or below zero
+- [ ] Set Price range between 1 and 1000
+- [ ] Set Quantity range between 1 and 1000
+- [ ] Invalid String Pattern
+- [ ] Product already exist
 
 #### Flow: 
 ```mermaid
@@ -220,39 +258,44 @@ graph TD;
   A["Product Service: Update Existing Product"] --> B["Form Validation"]-- YES --> C{Business Validation}
   B -- NO --> G["Validation Exception"]
   C -- Yes --> D["Update Product"]
-  D --> E["Product Updated"]
   C -- No --> F["Validation Exception"]
+  D --> E[Product Price Service: Update Price]
+  E --> H[Form Validation] -- Valid --> I{BusinesValidation}
+  H -- Invalid --> J[Validation Exception]
+  I -- Valid --> K[Update Price and date]
+  I -- Invalid --> L[Validation Exception]
+  K --> M[Product Updated Sucessfully]
 ```
 
 ### Feature 4: Delete Product
 
 #### Pre-requisites:
 
-- [ ] product DAO (delete) 
-- [ ] product Service (delete)
+- [ ] Product DAO (delete) 
+- [ ] Product Service (delete)
 
 #### Validations:
 
 - [ ] Form Validation
 		- id <= 0
-		- is_active = 0
+		- is active = 0
 
 - [ ] Business Validation
 		- Check product id is present
 
 #### Messages:
-- [ ] Invalid Id
-- [ ] User not found check the given id
+- [ ] Product Id cannot be zero or below zero
+- [ ] Product not found
 
 #### Flow: 
 ```mermaid
 graph TD;
   A["Prodcuct Service: Delete Product"] --> B["Form Validation"]
-  B -- YES--> C{Business Validation}
-  B -- NO --> G[Validation Exception]
-  C -- Yes --> D[Delete Product]
+  B -- Valid --> C{Business Validation}
+  B -- Invalid --> G[Validation Exception]
+  C -- Valid --> D[Delete Product]
   D --> E[Product Deleted]
-  C -- No --> F[Validation Exception]
+  C -- Invalid --> F[Validation Exception]
 ```
 
 ## Module: Order
@@ -264,35 +307,44 @@ graph TD;
 
 #### Pre-requisites:
 
-- [ ] order DAO (create) 
-- [ ] order Service (create)
+- [ ] Order DAO (create) 
+- [ ] Order Service (create)
 
 #### Validations:
 
 - [ ] Form Validation
 	-Order null
-	-address (null or empty string)
+	-address (null, empty, pattern)
 	-quantity <=0
-	-created_by <= 0
+	-product id <=0
+	-created by <= 0
+	-total price <=0
+	-quantity >= 10 
 
 - [ ] Business Validation
-		- Check delivery_time(Breakfast, lunch, dinner) is filled
+		- Check Product Id is present
+		- Check delivery time(Breakfast, lunch, dinner) is filled
 
 #### Messages:
 - [ ] Order cannot be null or empty
 - [ ] Address cannot be null or empty
-- [ ] Please select the quantity
+- [ ] Quantity cannot be zero or below zero
+- [ ] Total Price cannot be zero or below zero
+- [ ] User Id cannot be zero or below zero
+- [ ] Product Id cannot be zero or below zero
+- [ ] Quantity must be below 10
+- [ ] Product not found
 - [ ] User not found
-- [ ] Choose your delivery time
+- [ ] Invalid Address Pattern
 		
 #### Flow: 
 ```mermaid
 graph TD;
-  A["Order Service: Create or Place new Order"] --> B["Form Validation"] -- YES --> C{Business Validation}
-  B -- NO --> G[Validation Exception]
-  C -- Yes --> D[Create Order]
+  A["Order Service: Create or Place new Order"] --> B["Form Validation"] -- Valid --> C{Business Validation}
+  B -- Invalid --> G[Validation Exception]
+  C -- Valid --> D[Create Order]
   D --> E[Order Created]
-  C -- No --> F[Validation Exception]
+  C -- Invalid --> F[Validation Exception]
 ```
 
 ### Feature 2:  List All Orders
@@ -308,4 +360,4 @@ graph TD;
   A["Order Service: GetAll Orders"] --> B[ FindAll Order]
   B -- Yes --> C["Return all Orders"]
   B -- No --> D["Return null"]
- 
+  ```
