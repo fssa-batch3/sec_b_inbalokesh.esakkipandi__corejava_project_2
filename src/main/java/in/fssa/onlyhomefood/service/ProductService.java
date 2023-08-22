@@ -5,7 +5,7 @@ import java.util.Set;
 
 import in.fssa.onlyhomefood.dao.ProductDAO;
 import in.fssa.onlyhomefood.dao.ProductPriceDAO;
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.Product;
@@ -18,24 +18,25 @@ public class ProductService {
 	 * @throws ServiceException
 	 */
 	public Set<Product> getAll() throws ServiceException {
-		
+
 		Set<Product> productList = null;
 		try {
 			ProductDAO productDao = new ProductDAO();
 			ProductPriceDAO priceDao = new ProductPriceDAO();
 			productList = productDao.findAll();
-			
-			for(Product list : productList) {
+
+			for (Product list : productList) {
 				int price = priceDao.getPrices(list.getId());
 				list.setPrice(price);
 			}
-			
-		} catch (PersistanceException e) {
+
+		} catch (PersistenceException e) {
 			System.out.println(e);
 			throw new ServiceException(e.getMessage());
 		}
 		return productList;
 	}
+
 	/**
 	 * 
 	 * @param productId
@@ -44,7 +45,7 @@ public class ProductService {
 	 * @throws ServiceException
 	 */
 	public Product findById(int productId) throws ValidationException, ServiceException {
-		
+
 		Product product = null;
 		try {
 			ProductValidator.isIdValid(productId);
@@ -53,24 +54,25 @@ public class ProductService {
 			product = productDao.findById(productId);
 			int price = priceDao.getPrices(productId);
 			product.setPrice(price);
-			
-		} catch (PersistanceException e) {
+
+		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
 		return product;
 	}
+
 	/**
 	 * 
 	 * @param product
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void create (Product product) throws ValidationException, ServiceException {
-		
+	public void create(Product product) throws ValidationException, ServiceException {
+
 		int generatedId = -1;
 		Timestamp d = null;
-		
+
 		try {
 			ProductDAO productDao = new ProductDAO();
 			ProductPriceService productPriceService = new ProductPriceService();
@@ -79,11 +81,12 @@ public class ProductService {
 			generatedId = productDao.create(product);
 			d = productPriceService.getDate(generatedId);
 			productPriceService.create(d, generatedId, product.getPrice());
-			
-		} catch (PersistanceException e) {
+
+		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
+	
 	/**
 	 * 
 	 * @param id
@@ -91,27 +94,27 @@ public class ProductService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void update (int id, Product product) throws ValidationException, ServiceException {
-		
+	public void update(int id, Product product) throws ValidationException, ServiceException {
+
 		Timestamp d = null;
 		try {
 			ProductDAO productDao = new ProductDAO();
 			ProductPriceService productPriceService = new ProductPriceService();
-			
+
 //			Vaidate id and product
 			ProductValidator.validate(product);
 			ProductValidator.isIdValid(id);
-			
+
 //			Update details
 			productDao.update(id, product);
 			d = productPriceService.getDate(id);
 			productPriceService.update(d, id, product.getPrice());
-			
-		} catch (PersistanceException e) {
+
+		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
 		}
-		
 	}
+	
 	/**
 	 * 
 	 * @param id
@@ -119,12 +122,12 @@ public class ProductService {
 	 * @throws ServiceException
 	 */
 	public void delete(int id) throws ValidationException, ServiceException {
-		
+
 		try {
 			ProductDAO productDao = new ProductDAO();
 			ProductValidator.isIdValid(id);
 			productDao.delete(id);
-		}catch(PersistanceException e) {
+		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}

@@ -10,10 +10,11 @@ public class IntUtil {
 	 * @throws ValidationException
 	 */
 	public static void rejectIfInvalidId(int id, String inputName) throws ValidationException {
-		if(id <= 0) {
+		if (id <= 0) {
 			throw new ValidationException(inputName.concat(" cannot be zero or below zero"));
 		}
 	}
+
 	/**
 	 * 
 	 * @param number
@@ -23,9 +24,10 @@ public class IntUtil {
 //	Patterns
 	public static void rejectIfInvalidNumber(long number, String inputNumber) throws ValidationException {
 		if (number < 6000000001l || number > 9999999999l) {
-			throw new ValidationException(inputNumber.concat(" must start between 6 - 9 and have 10 digits"));
+			throw new ValidationException(inputNumber.concat(" must start between 6 - 9 and have total of 10 digits"));
 		}
 	}
+
 	/**
 	 * 
 	 * @param range
@@ -37,5 +39,5 @@ public class IntUtil {
 			throw new ValidationException(inputRange.concat(" range between 1 and 1000"));
 		}
 	}
-	
+
 }

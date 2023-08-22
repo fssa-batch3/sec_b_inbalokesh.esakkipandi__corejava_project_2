@@ -31,7 +31,7 @@ public class TestGetAllUsers {
 		UserService userService = new UserService();
 
 		assertDoesNotThrow(() -> {
-			System.out.println(userService.findById(1));
+			System.out.println(userService.findById(2));
 		});
 	}
 
@@ -55,7 +55,7 @@ public class TestGetAllUsers {
 
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.findById(10);
+			userService.findById(1000);
 		});
 
 		String expectedMessage = "User not found";

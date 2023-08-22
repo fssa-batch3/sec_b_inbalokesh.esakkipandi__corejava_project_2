@@ -22,12 +22,12 @@ public class TestCreateOrder {
 		OrderService orderService = new OrderService();
 		Order newOrder = new Order();
 		newOrder.setQuantity(3);
-		newOrder.setTotal_price(54);
+		newOrder.setTotal_price(56);
 		newOrder.setDelivery_time(DeliveryTime.Breakfast);
 		newOrder.setOrder_status(OrderStatus.Not_delivered);
-		newOrder.setCreated_by(1);
+		newOrder.setCreated_by(3);
 		newOrder.setAddress("Perugudi Chennai");
-		newOrder.setProduct_id(1);
+		newOrder.setProduct_id(2);
 
 		assertDoesNotThrow(() -> {
 			orderService.create(newOrder);
@@ -224,7 +224,7 @@ public class TestCreateOrder {
 		newOrder.setOrder_status(OrderStatus.Not_delivered);
 		newOrder.setCreated_by(1);
 		newOrder.setAddress("Perungudi Chennai");
-		newOrder.setProduct_id(10);
+		newOrder.setProduct_id(1000);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			orderService.create(newOrder);
@@ -246,7 +246,7 @@ public class TestCreateOrder {
 		newOrder.setTotal_price(57);
 		newOrder.setDelivery_time(DeliveryTime.Breakfast);
 		newOrder.setOrder_status(OrderStatus.Not_delivered);
-		newOrder.setCreated_by(10);
+		newOrder.setCreated_by(1000);
 		newOrder.setAddress("Perungudi Chennai");
 		newOrder.setProduct_id(3);
 		
@@ -265,7 +265,7 @@ public class TestCreateOrder {
 		
 		OrderService orderService = new OrderService();
 		Order newOrder = new Order();
-		newOrder.setQuantity(12);
+		newOrder.setQuantity(4);
 		newOrder.setTotal_price(57);
 		newOrder.setDelivery_time(DeliveryTime.Breakfast);
 		newOrder.setOrder_status(OrderStatus.Not_delivered);

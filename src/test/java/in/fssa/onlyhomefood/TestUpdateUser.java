@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.service.UserService;
+import in.fssa.onlyhomefood.util.RandomGenerator;
+
 
 public class TestUpdateUser {
-
+	RandomGenerator random = new RandomGenerator();
 	@Test
 	public void testUpdateUserWithValidInput() {
 
@@ -19,12 +21,12 @@ public class TestUpdateUser {
 
 		User newUser = new User();
 		newUser.setEmail("inba@gmail.com");
-		newUser.setName("Akilesh");
+		newUser.setName(random.generateRandomString(7));
 		newUser.setMobNumber(6922334453l);
 		newUser.setPassword("Akil1234");
 
 		assertDoesNotThrow(() -> {
-			userService.update(1, newUser);
+			userService.update(2, newUser);
 		});
 	}
 
@@ -33,7 +35,7 @@ public class TestUpdateUser {
 	public void testUpdateUserWithInvaidInput() {
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(0, null);
+			userService.update(2, null);
 		});
 		String expectedMessage = "User cannot be null";
 		String receivedMessage = exception.getMessage();
@@ -134,10 +136,10 @@ public class TestUpdateUser {
 		newUser.setPassword("Inba1234");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(1, newUser);
+			userService.update(2, newUser);
 
 		});
-		String expectedMessage = "Invalid String Pattern";
+		String expectedMessage = "Name must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 
@@ -196,7 +198,7 @@ public class TestUpdateUser {
 		newUser.setMobNumber(9922334453l);
 		newUser.setPassword("Inba12345");
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(10, newUser);
+			userService.update(100, newUser);
 		});
 
 		String expectedMessage = "User not found";

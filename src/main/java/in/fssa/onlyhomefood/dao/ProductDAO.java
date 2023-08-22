@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
@@ -16,10 +16,10 @@ public class ProductDAO{
 	/**
 	 * 
 	 * @return
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
 //	Find all products
-	public Set<Product> findAll() throws PersistanceException {
+	public Set<Product> findAll() throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -45,7 +45,7 @@ public class ProductDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -56,10 +56,10 @@ public class ProductDAO{
 	 * 
 	 * @param productId
 	 * @return
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
 //	Find products by id
-	public Product findById(int productId) throws PersistanceException {
+	public Product findById(int productId) throws PersistenceException {
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -86,7 +86,7 @@ public class ProductDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -96,10 +96,10 @@ public class ProductDAO{
 	/**
 	 * 
 	 * @param product
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
 //	Check whether same name is present
-	public void checkNameIsPresent(Product product) throws PersistanceException {
+	public void checkNameIsPresent(Product product) throws PersistenceException {
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -113,13 +113,14 @@ public class ProductDAO{
 			rs = ps.executeQuery();
 
 			if (rs.next() == true) {
-				throw new PersistanceException("Product already exist");
+				throw new PersistenceException("Product already exist");
 			}
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e);
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
@@ -128,10 +129,10 @@ public class ProductDAO{
 	 * 
 	 * @param newProduct
 	 * @return
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
 //	Create new product
-	public int create(Product newProduct) throws PersistanceException {
+	public int create(Product newProduct) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -151,6 +152,7 @@ public class ProductDAO{
 			ps.executeUpdate();
 			
 			rs = ps.getGeneratedKeys();
+			
 			if(rs.next()) {
 				generatedId = rs.getInt(1);
 			}
@@ -159,7 +161,7 @@ public class ProductDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
@@ -168,10 +170,10 @@ public class ProductDAO{
 	/**
 	 * 
 	 * @param id
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
 	// To check whether id is presents
-	public void checkIdExists(int id) throws PersistanceException {
+	public void checkIdExists(int id) throws PersistenceException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -184,11 +186,11 @@ public class ProductDAO{
 			rs = ps.executeQuery();
 
 			if (rs.next() == false) {
-				throw new PersistanceException("Product not found");
+				throw new PersistenceException("Product not found");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		}  finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
@@ -197,10 +199,10 @@ public class ProductDAO{
 	 * 
 	 * @param id
 	 * @param updateProduct
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
 //	Update product
-	public void update(int id, Product updateProduct) throws PersistanceException {
+	public void update(int id, Product updateProduct) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -219,7 +221,7 @@ public class ProductDAO{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
 		}
@@ -227,9 +229,9 @@ public class ProductDAO{
 	/**
 	 * 
 	 * @param id
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public void delete(int id) throws PersistanceException {
+	public void delete(int id) throws PersistenceException {
 		Connection con = null;
 		PreparedStatement ps = null;
 
@@ -245,9 +247,34 @@ public class ProductDAO{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
 		}
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getLastUpdatedUserId() {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    int productId = 0;
+	    try {
+	        String query = "SELECT id FROM products WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1";
+	        conn = ConnectionUtil.getConnection();
+	        ps = conn.prepareStatement(query);
+	        rs = ps.executeQuery();
+	        if (rs.next()) {
+	        	productId = rs.getInt("id");   
+	        }
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+//	        throw new PersistenceException(e.getMessage());
+	    } finally {
+	        ConnectionUtil.close(conn, ps, rs);
+	    }
+	    return productId;
 	}
 }

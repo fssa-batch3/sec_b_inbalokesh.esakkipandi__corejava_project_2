@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import in.fssa.onlyhomefood.dao.ProductDAO;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.service.ProductService;
 
@@ -15,8 +16,11 @@ public class TestDeleteProduct {
 	public void testDeleteProductWithValidInput() {
 
 		ProductService productService = new ProductService();
+		ProductDAO productDao = new ProductDAO();
+		
+		int id = productDao.getLastUpdatedUserId();
 		assertDoesNotThrow(() -> {
-			productService.delete(1);
+			productService.delete(id);
 		});
 	}
 	
@@ -40,7 +44,7 @@ public class TestDeleteProduct {
 		
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.delete(10);
+			productService.delete(1000);
 		});
 		
 		String expectedMessage = "Product not found";

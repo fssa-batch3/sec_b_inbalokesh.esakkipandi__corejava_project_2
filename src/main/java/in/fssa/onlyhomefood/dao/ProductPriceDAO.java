@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.model.ProductPrice;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
@@ -16,10 +16,10 @@ public class ProductPriceDAO {
 	/**
 	 * 
 	 * @return
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
 //	Find all products
-	public Set<ProductPrice> findAll() throws PersistanceException {
+	public Set<ProductPrice> findAll() throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -44,20 +44,21 @@ public class ProductPriceDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
 		return productPriceList;
 	}
+
 	/**
 	 * 
 	 * @param product_id
 	 * @return
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public Timestamp getDate(int product_id) throws PersistanceException {
+	public Timestamp getDate(int product_id) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -78,24 +79,24 @@ public class ProductPriceDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
 		return updateDate;
 	}
+
 	/**
 	 * 
 	 * @param updateDate
 	 * @param product_id
 	 * @param price
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public void create(Timestamp updateDate, int product_id, int price) throws PersistanceException {
+	public void create(Timestamp updateDate, int product_id, int price) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
-
 		try {
 			String query = "INSERT INTO product_price (product_id, price, start_date) VALUES (?,?,?)";
 
@@ -112,19 +113,19 @@ public class ProductPriceDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
 		}
-
 	}
+
 	/**
 	 * 
 	 * @param updateDate
 	 * @param product_id
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public void update(Timestamp updateDate, int product_id) throws PersistanceException {
+	public void update(Timestamp updateDate, int product_id) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -141,38 +142,39 @@ public class ProductPriceDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
 		}
 	}
+
 	/**
 	 * 
 	 * @param productId
 	 * @return
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public int getPrices(int productId) throws PersistanceException {
+	public int getPrices(int productId) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int productPrice = 0;
-		
+
 		try {
 			String query = "SELECT price FROM product_price WHERE product_id = ? AND end_date IS NULL";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, productId);
 			rs = ps.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				productPrice = rs.getInt("price");
 			}
-			
-		}catch(SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
 		}

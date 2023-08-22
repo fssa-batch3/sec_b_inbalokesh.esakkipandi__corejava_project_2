@@ -3,7 +3,7 @@ package in.fssa.onlyhomefood.service;
 import java.util.Set;
 
 import in.fssa.onlyhomefood.dao.OrderDAO;
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.Order;
@@ -22,7 +22,7 @@ public class OrderService {
 			OrderDAO orderDao = new OrderDAO();
 			orderList = orderDao.findAll();
 			
-		}catch(PersistanceException e) {
+		}catch(PersistenceException e) {
 			throw new ServiceException(e.getMessage());
 		}
 		
@@ -44,7 +44,7 @@ public class OrderService {
 			OrderDAO orderDao = new OrderDAO();
 			orderDao.create(order);
 			
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}

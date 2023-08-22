@@ -34,7 +34,7 @@ public class TestGetAllProducts {
 
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
-			System.out.println(productService.findById(1));
+			System.out.println(productService.findById(2));
 		});
 	}
 	
@@ -58,7 +58,7 @@ public class TestGetAllProducts {
 
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.findById(10);
+			productService.findById(1000);
 		});
 
 		String expectedMessage = "Product not found";

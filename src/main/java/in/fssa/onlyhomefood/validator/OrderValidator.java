@@ -2,7 +2,7 @@ package in.fssa.onlyhomefood.validator;
 
 import in.fssa.onlyhomefood.dao.ProductDAO;
 import in.fssa.onlyhomefood.dao.UserDAO;
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.Order;
 import in.fssa.onlyhomefood.util.IntUtil;
@@ -61,7 +61,7 @@ public class OrderValidator {
 			productDao.checkIdExists(order.getProduct_id());
 			UserDAO userDao = new UserDAO();
 			userDao.checkIdExists(order.getCreated_by());
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			throw new ValidationException(e.getMessage());
 		}
 		

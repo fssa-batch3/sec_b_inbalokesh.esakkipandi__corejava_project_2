@@ -53,7 +53,7 @@ public class ProductEntity {
 	public void setQuantity(int quanity) {
 		this.quantity = quanity;
 	}
-	
+
 	public String getQuantityType() {
 		return quantityType;
 	}

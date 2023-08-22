@@ -1,7 +1,7 @@
 package in.fssa.onlyhomefood.validator;
 
 import in.fssa.onlyhomefood.dao.ProductDAO;
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.util.IntUtil;
@@ -25,9 +25,9 @@ public class ProductValidator {
 		StringUtil.rejectIfInvalidString(product.getQuantityType(), "Quantity type");
 		
 //		Patterns
-		StringUtil.rejectIfInvalidName(product.getName());
-		StringUtil.rejectIfInvalidName(product.getType());
-		StringUtil.rejectIfInvalidName(product.getQuantityType());
+		StringUtil.rejectIfInvalidName(product.getName(), "Food Name");
+		StringUtil.rejectIfInvalidName(product.getType(), "Food type");
+		StringUtil.rejectIfInvalidName(product.getQuantityType(), "Quantity type");
 		IntUtil.rejectIfInvalidRange(product.getQuantity(), "Set Quantity");
 		IntUtil.rejectIfInvalidRange(product.getPrice(), "Set Price");
 	}
@@ -42,7 +42,7 @@ public class ProductValidator {
 			IntUtil.rejectIfInvalidId(id, "Product Id");
 			ProductDAO productDao = new ProductDAO();
 			productDao.checkIdExists(id);
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			throw new ValidationException(e.getMessage());
 		}
 		

@@ -10,19 +10,22 @@ import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.service.ProductService;
+import in.fssa.onlyhomefood.util.RandomGenerator;
 
 public class TestCreateProduct {
+	
+	RandomGenerator random = new RandomGenerator();
 //	Test Product with valid input
 	@Test
 	public void testCreateProductWithValidInput() {
 
 		ProductService productService = new ProductService();
 		Product product = new Product();
-		product.setName("Idly");
+		product.setName(random.generateRandomString(5));
 		product.setType("Veg");
-		product.setQuantity(4);
+		product.setQuantity(2);
 		product.setPrice(19);
-		product.setQuantityType("Idly");
+		product.setQuantityType("piece");
 
 		assertDoesNotThrow(() -> {
 			productService.create(product);
@@ -227,7 +230,7 @@ public class TestCreateProduct {
 			productService.create(product);
 		});
 
-		String expectedMessage = "Invalid String Pattern";
+		String expectedMessage = "Food Name must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
@@ -248,7 +251,7 @@ public class TestCreateProduct {
 			productService.create(product);
 		});
 
-		String expectedMessage = "Invalid String Pattern";
+		String expectedMessage = "Food type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
@@ -269,7 +272,7 @@ public class TestCreateProduct {
 			productService.create(product);
 		});
 
-		String expectedMessage = "Invalid String Pattern";
+		String expectedMessage = "Quantity type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}

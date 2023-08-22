@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import in.fssa.onlyhomefood.dao.UserDAO;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.service.UserService;
 
@@ -13,11 +14,13 @@ public class TestDeleteUser {
 //	Delete User with valid Input
 	@Test
 	public void testDeleteUserWithValidInput() {
-
 		UserService userService = new UserService();
-
+		UserDAO del = new UserDAO();
+		
+		int id = del.getLastUpdatedUserId();
+		
 		assertDoesNotThrow(() -> {
-			userService.delete(1);
+			userService.delete(id);
 		});
 	}
 
@@ -34,14 +37,14 @@ public class TestDeleteUser {
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
-	
+
 	// Id check
 	@Test
 	public void testUserCheckIdPresent() {
 
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.delete(10);
+			userService.delete(100);
 		});
 
 		String expectedMessage = "User not found";

@@ -1,7 +1,7 @@
 package in.fssa.onlyhomefood.validator;
 
 import in.fssa.onlyhomefood.dao.UserDAO;
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.util.IntUtil;
@@ -25,7 +25,7 @@ public class UserValidator {
 		IntUtil.rejectIfInvalidNumber(user.getMobNumber(), "Mobile Number");
 		
 		
-		StringUtil.rejectIfInvalidName(user.getName());
+		StringUtil.rejectIfInvalidName(user.getName(), "Name");
 		StringUtil.rejectIfInvalidEmail(user.getEmail());
 		StringUtil.rejectIfInvalidPassword(user.getPassword());
 	}
@@ -40,7 +40,7 @@ public class UserValidator {
 			IntUtil.rejectIfInvalidId(id, "User Id");
 			UserDAO userDao = new UserDAO();
 			userDao.checkIdExists(id);
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			throw new ValidationException(e.getMessage());
 		}
 		

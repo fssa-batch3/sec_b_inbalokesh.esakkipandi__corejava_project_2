@@ -3,7 +3,7 @@ package in.fssa.onlyhomefood.service;
 import java.util.Set;
 
 import in.fssa.onlyhomefood.dao.UserDAO;
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.User;
@@ -21,7 +21,7 @@ public class UserService {
 		try {
 			userList = userDao.findAll();
 			
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			System.out.println(e);
 			throw new ServiceException(e.getMessage());
 		}
@@ -42,7 +42,7 @@ public class UserService {
 			UserDAO userDao = new UserDAO();
 			user = userDao.findById(userId);
 			
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
@@ -61,7 +61,7 @@ public class UserService {
 			UserValidator.validate(newUser);
 			UserDAO userDao = new UserDAO();
 			userDao.create(newUser);
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			System.out.println(e);
 			throw new ServiceException(e.getMessage());
 		}
@@ -81,7 +81,7 @@ public class UserService {
 			UserDAO newUserDao = new UserDAO();
 			newUserDao.update(id, updateUser);
 			
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException("Failed to " + e.getMessage());
 		}
@@ -98,7 +98,7 @@ public class UserService {
 			UserValidator.isIdValid(id);
 			UserDAO newUserDao = new UserDAO();
 			newUserDao.delete(id);
-		} catch (PersistanceException e) {
+		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException("Failed to " + e.getMessage());
 		}

@@ -10,18 +10,23 @@ import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.service.UserService;
+import in.fssa.onlyhomefood.util.RandomGenerator;
 
 public class TestCreateUser {
-
+	
+	RandomGenerator random = new RandomGenerator();
 	// Valid Input
 	@Test
 	public void testCreateUserWithValidInput() {
 
+		
 		UserService userService = new UserService();
 		User newUser = new User();
-		newUser.setEmail("inba@gmail.com");
+		String randomString = random.generateRandomString(5);
+		long randomNumber = random.generateRandomNumber(10);
+		newUser.setEmail(randomString + "@gmail.com");
 		newUser.setName("Inba");
-		newUser.setMobNumber(8888834453l);
+		newUser.setMobNumber(randomNumber);
 		newUser.setPassword("Inba123098");
 
 		assertDoesNotThrow(() -> {
@@ -179,7 +184,7 @@ public class TestCreateUser {
 			userService.create(newUser);
 
 		});
-		String expectedMessage = "Mobile Number must start between 6 - 9 and have 10 digits";
+		String expectedMessage = "Mobile Number must start between 6 - 9 and have total of 10 digits";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 
@@ -200,7 +205,7 @@ public class TestCreateUser {
 			userService.create(newUser);
 
 		});
-		String expectedMessage = "Invalid String Pattern";
+		String expectedMessage = "Name must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 
@@ -278,7 +283,7 @@ public class TestCreateUser {
 		User newUser = new User();
 		newUser.setEmail("anna@gmail.com");
 		newUser.setName("Inba");
-		newUser.setMobNumber(8888834453l);
+		newUser.setMobNumber(8888834458l);
 		newUser.setPassword("Inba123098");
 
 		Exception exception = assertThrows(ServiceException.class, () -> {

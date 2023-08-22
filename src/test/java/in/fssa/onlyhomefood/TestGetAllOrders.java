@@ -13,7 +13,6 @@ public class TestGetAllOrders {
 	
 	@Test
 	public void testGetAllOrders() {
-
 		OrderService orderService = new OrderService();
 		assertDoesNotThrow(() -> {
 			Set<Order> orders = orderService.getAll();
@@ -21,8 +20,6 @@ public class TestGetAllOrders {
 			for(Order n : orders) {
 				System.out.println(n);
 			}
-			
 		});
 	}
-
 }

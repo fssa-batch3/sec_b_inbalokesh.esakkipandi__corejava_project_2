@@ -8,16 +8,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 import in.fssa.onlyhomefood.Interface.UserInterface;
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
 public class UserDAO implements UserInterface {
 	/**
 	 * @return 
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public Set<User> findAll() throws PersistanceException {
+	public Set<User> findAll() throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -25,7 +25,7 @@ public class UserDAO implements UserInterface {
 		Set<User> userList = new HashSet<>();
 
 		try {
-			String query = "select * from users where is_active = 1";
+			String query = "SELECT * FROM users WHERE is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -43,7 +43,7 @@ public class UserDAO implements UserInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -53,9 +53,9 @@ public class UserDAO implements UserInterface {
 	/**
 	 * @return
 	 * @param userId
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public User findById(int userId) throws PersistanceException {
+	public User findById(int userId) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -63,7 +63,7 @@ public class UserDAO implements UserInterface {
 		User user = null;
 
 		try {
-			String query = "select * from users where is_active = 1 AND id = ?";
+			String query = "SELECT * FROM users WHERE is_active = 1 AND id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, userId);
@@ -81,7 +81,7 @@ public class UserDAO implements UserInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -90,16 +90,16 @@ public class UserDAO implements UserInterface {
 	}
 	/**
 	 * @param newUser
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public void create(User newUser) throws PersistanceException {
+	public void create(User newUser) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {
-			String query = "select * from users where is_active = 1 AND phone_number = ? OR email = ?";
+			String query = "SELECT * FROM users WHERE is_active = 1 AND phone_number = ? OR email = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setLong(1, newUser.getMobNumber());
@@ -107,19 +107,19 @@ public class UserDAO implements UserInterface {
 			rs = ps.executeQuery();
 
 			if (rs.next() == true) {
-				throw new PersistanceException("User already exist");
+				throw new PersistenceException("User already exist");
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e);
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
 
 		try {
-			String query = "insert into users (user_name, phone_number, email, password) values (?,?,?,?)";
+			String query = "INSERT INTO users (user_name, phone_number, email, password) VALUES (?,?,?,?)";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
@@ -134,7 +134,7 @@ public class UserDAO implements UserInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 //			System.out.println(e.getMessage());
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
 		}
@@ -142,15 +142,15 @@ public class UserDAO implements UserInterface {
 	/**
 	 * @param id
 	 * @param updateUser
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public void update(int id, User updateUser) throws PersistanceException {
+	public void update(int id, User updateUser) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		try {
-			String query = "Update users set user_name = ?, password = ? where id = ? AND is_active = 1";
+			String query = "UPDATE users SET user_name = ?, password = ? WHERE id = ? AND is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
@@ -163,7 +163,7 @@ public class UserDAO implements UserInterface {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
 		}
@@ -172,41 +172,41 @@ public class UserDAO implements UserInterface {
 	/**
 	 * 
 	 * @param id
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
 	// To check whether id is presents
-	public void checkIdExists(int id) throws PersistanceException {
+	public void checkIdExists(int id) throws PersistenceException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {
-			String query = "select * from users where is_active = 1 AND id = ?";
+			String query = "SELECT * FROM users WHERE is_active = 1 AND id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 
 			if (rs.next() == false) {
-				throw new PersistanceException("User not found");
+				throw new PersistenceException("User not found");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		}  finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
 	}
 	/**
 	 * @param id
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public void delete(int id) throws PersistanceException {
+	public void delete(int id) throws PersistenceException {
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		try {
-			String query = "Update users set is_active = 0 where id = ? AND is_active = 1";
+			String query = "UPDATE users SET is_active = 0 WHERE id = ? AND is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
@@ -217,10 +217,35 @@ public class UserDAO implements UserInterface {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new PersistanceException(e.getMessage());
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
 		}
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getLastUpdatedUserId() {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    int userId = 0;
+	    try {
+	        String query = "SELECT id FROM users WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1";
+	        conn = ConnectionUtil.getConnection();
+	        ps = conn.prepareStatement(query);
+	        rs = ps.executeQuery();
+	        if (rs.next()) {
+	            userId = rs.getInt("id");   
+	        }
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+//	        throw new PersistenceException(e.getMessage());
+	    } finally {
+	        ConnectionUtil.close(conn, ps, rs);
+	    }
+	    return userId;
 	}
 
 }

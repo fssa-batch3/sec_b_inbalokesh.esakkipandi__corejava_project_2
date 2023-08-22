@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import in.fssa.onlyhomefood.exception.PersistanceException;
+import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.model.Order;
 import in.fssa.onlyhomefood.model.OrderEntity.DeliveryTime;
 import in.fssa.onlyhomefood.model.OrderEntity.OrderStatus;
@@ -17,9 +17,9 @@ public class OrderDAO {
 	/**
 	 * 
 	 * @param newOrder
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public void create(Order newOrder) throws PersistanceException {
+	public void create(Order newOrder) throws PersistenceException {
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -46,7 +46,7 @@ public class OrderDAO {
 		}catch (SQLException e) {
 				e.printStackTrace();
 				System.out.println(e.getMessage());
-				throw new PersistanceException(e.getMessage());
+				throw new PersistenceException(e.getMessage());
 			} finally {
 				ConnectionUtil.close(con, ps, rs);
 			}
@@ -54,9 +54,9 @@ public class OrderDAO {
 	/**
 	 * 
 	 * @return
-	 * @throws PersistanceException
+	 * @throws PersistenceException
 	 */
-	public Set<Order> findAll() throws PersistanceException{
+	public Set<Order> findAll() throws PersistenceException{
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -84,7 +84,7 @@ public class OrderDAO {
 	} catch (SQLException e) {
 		e.printStackTrace();
 		System.out.println(e.getMessage());
-		throw new PersistanceException(e.getMessage());
+		throw new PersistenceException(e.getMessage());
 
 	} finally {
 		ConnectionUtil.close(con, ps, rs);

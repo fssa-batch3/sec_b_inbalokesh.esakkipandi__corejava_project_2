@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.service.ProductService;
+import in.fssa.onlyhomefood.util.RandomGenerator;
 
 public class TestUpdateProduct {
+	RandomGenerator random = new RandomGenerator();
 //	Test update with Valid Input
 	@Test
 	public void testUpdateProductWithValidInput() {
@@ -18,14 +20,14 @@ public class TestUpdateProduct {
 		ProductService productService = new ProductService();
 
 		Product updateProduct = new Product();
-		updateProduct.setName("Idly");
+		updateProduct.setName("Dosa");
 		updateProduct.setType("Veg");
 		updateProduct.setQuantity(1);
 		updateProduct.setPrice(18);
-		updateProduct.setQuantityType("piece");
+		updateProduct.setQuantityType(random.generateRandomString(4));
 
 		assertDoesNotThrow(() -> {
-			productService.update(1, updateProduct);
+			productService.update(4, updateProduct);
 		});
 	}
 
@@ -35,7 +37,7 @@ public class TestUpdateProduct {
 
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, null);
+			productService.update(2, null);
 		});
 		String expectedMessage = "Product cannot be null";
 		String receivedMessage = exception.getMessage();
@@ -78,7 +80,7 @@ public class TestUpdateProduct {
 		updateProduct.setQuantityType("piece");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(11, updateProduct);
+			productService.update(1000, updateProduct);
 		});
 
 		String expectedMessage = "Product not found";
@@ -229,7 +231,7 @@ public class TestUpdateProduct {
 			productService.update(1, product);
 		});
 
-		String expectedMessage = "Invalid String Pattern";
+		String expectedMessage = "Food type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
@@ -250,7 +252,7 @@ public class TestUpdateProduct {
 			productService.update(1, product);
 		});
 
-		String expectedMessage = "Invalid String Pattern";
+		String expectedMessage = "Quantity type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
