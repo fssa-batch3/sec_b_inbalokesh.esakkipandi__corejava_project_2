@@ -3,11 +3,12 @@ package in.fssa.onlyhomefood.util;
 import java.util.Random;
 
 public class RandomGenerator {
+	private Random random = new Random();
 	
 	public String generateRandomString(int length) {
 	    String characters = "abcdefghijklmnopqrstuvwxyz";
 	    StringBuilder randomString = new StringBuilder();
-	    Random random = new Random();
+	    
 	    for (int i = 0; i < length; i++) {
 	        int index = random.nextInt(characters.length());
 	        randomString.append(characters.charAt(index));
@@ -21,10 +22,9 @@ public class RandomGenerator {
 		long max = 9999999999l; // Maximum value for the random number
 		int numberOfRandomNumbers = 100; // Set the number of random numbers you want to generate
 
-		Random rand = new Random();
 		long randomNumber = 0;
 		for (int i = 0; i < numberOfRandomNumbers; i++) {
-			randomNumber = rand.nextLong(max - min + 1) + min;
+			randomNumber = random.nextLong(max - min + 1) + min;
 
 		}
 		return randomNumber;

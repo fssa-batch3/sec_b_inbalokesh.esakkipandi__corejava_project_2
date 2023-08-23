@@ -50,7 +50,7 @@ public class StringUtil {
 //	Patterns
 	public static void rejectIfInvalidName(String name, String inputName) throws ValidationException {
 
-		String regex = "[a-zA-Z]{3,}+([ '-][a-zA-Z]+)*";
+		String regex = "^(?=.{1,30}$)[a-zA-Z]{3,}(?:[ '-][a-zA-Z]+)*$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(name);
 		if (matcher.matches() == false) {
@@ -80,7 +80,7 @@ public class StringUtil {
 	 */
 	public static void rejectIfInvalidPassword(String password) throws ValidationException {
 
-		String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
+		String regex = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$";
 		Pattern patter = Pattern.compile(regex);
 		Matcher matcher = patter.matcher(password);
 		if (matcher.matches() == false) {

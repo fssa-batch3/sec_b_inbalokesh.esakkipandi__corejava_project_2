@@ -76,8 +76,8 @@ public class UserService {
 	public void update(int id, User updateUser) throws ValidationException, ServiceException {
 
 		try {
-			UserValidator.validate(updateUser);
 			UserValidator.isIdValid(id);
+			UserValidator.validate(updateUser);
 			UserDAO newUserDao = new UserDAO();
 			newUserDao.update(id, updateUser);
 			
