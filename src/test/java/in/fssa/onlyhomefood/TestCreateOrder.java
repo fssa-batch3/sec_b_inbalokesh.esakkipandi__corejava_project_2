@@ -30,7 +30,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(2);
 
 		assertDoesNotThrow(() -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 	}
 
@@ -39,7 +39,7 @@ public class TestCreateOrder {
 	public void testCreateOrderWithInvalidInput() {
 		OrderService orderService = new OrderService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(null);
+			orderService.createNewOrder(null);
 		});
 		String expectedMessage = "Order cannot be null";
 		String receivedMessage = exception.getMessage();
@@ -61,7 +61,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(3);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		String expectedMessage = "Address cannot be null or empty";
 		String receivedMessage = exception.getMessage();
@@ -83,7 +83,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(3);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		String expectedMessage = "Address cannot be null or empty";
 		String receivedMessage = exception.getMessage();
@@ -106,7 +106,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(3);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		
 		String expectedMessage = "Quantity cannot be zero or below zero";
@@ -130,7 +130,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(3);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		
 		String expectedMessage = "Total Price cannot be zero or below zero";
@@ -154,7 +154,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(3);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		
 		String expectedMessage = "User Id cannot be zero or below zero";
@@ -178,7 +178,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(0);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		
 		String expectedMessage = "Product Id cannot be zero or below zero";
@@ -203,7 +203,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(3);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		
 		String expectedMessage = "Quantity must be below 10";
@@ -227,7 +227,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(1000);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		
 		String expectedMessage = "Product not found";
@@ -251,7 +251,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(3);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		
 		String expectedMessage = "User not found";
@@ -274,7 +274,7 @@ public class TestCreateOrder {
 		newOrder.setProduct_id(3);
 		
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			orderService.create(newOrder);
+			orderService.createNewOrder(newOrder);
 		});
 		String expectedMessage = "Invalid Address Pattern";
 		String receivedMessage = exception.getMessage();

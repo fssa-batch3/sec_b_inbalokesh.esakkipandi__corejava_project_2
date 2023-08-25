@@ -27,7 +27,7 @@ public class ProductPriceDAO {
 		Set<ProductPrice> productPriceList = new HashSet<>();
 
 		try {
-			String query = "select * from product_price";
+			String query = "SELECT id,price,product_id,start_date,end_date FROM product_price";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -66,7 +66,7 @@ public class ProductPriceDAO {
 		Timestamp updateDate = null;
 
 		try {
-			String query = "SELECT * FROM products where id = ?";
+			String query = "SELECT modified_at FROM products WHERE id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, product_id);
@@ -131,7 +131,7 @@ public class ProductPriceDAO {
 		PreparedStatement ps = null;
 
 		try {
-			String query = "Update product_price set end_date = ? where product_id = ? and end_date IS NULL";
+			String query = "UPDATE product_price SET end_date = ? WHERE product_id = ? AND end_date IS NULL";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
@@ -154,7 +154,7 @@ public class ProductPriceDAO {
 	 * @return
 	 * @throws PersistenceException
 	 */
-	public int getPrices(int productId) throws PersistenceException {
+	public int getPrice(int productId) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;

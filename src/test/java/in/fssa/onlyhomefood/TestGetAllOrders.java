@@ -15,7 +15,7 @@ public class TestGetAllOrders {
 	public void testGetAllOrders() {
 		OrderService orderService = new OrderService();
 		assertDoesNotThrow(() -> {
-			Set<Order> orders = orderService.getAll();
+			Set<Order> orders = orderService.getAllOrders();
 	
 			for(Order n : orders) {
 				System.out.println(n);

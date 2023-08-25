@@ -57,10 +57,10 @@ public class OrderValidator {
 	 */
 	public static void checkIdExist(Order order) throws ValidationException {
 		try {
-			ProductDAO productDao = new ProductDAO();
-			productDao.checkIdExists(order.getProduct_id());
-			UserDAO userDao = new UserDAO();
-			userDao.checkIdExists(order.getCreated_by());
+			ProductDAO productDAO = new ProductDAO();
+			productDAO.checkIdExists(order.getProduct_id());
+			UserDAO userDAO = new UserDAO();
+			userDAO.checkIdExists(order.getCreated_by());
 		} catch (PersistenceException e) {
 			throw new ValidationException(e.getMessage());
 		}

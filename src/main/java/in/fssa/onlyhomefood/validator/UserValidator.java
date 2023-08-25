@@ -38,12 +38,11 @@ public class UserValidator {
 		
 		try {
 			IntUtil.rejectIfInvalidId(id, "User Id");
-			UserDAO userDao = new UserDAO();
-			userDao.checkIdExists(id);
+			UserDAO userDAO = new UserDAO();
+			userDAO.checkIdExists(id);
 		} catch (PersistenceException e) {
 			throw new ValidationException(e.getMessage());
 		}
-		
 	}
 
 }

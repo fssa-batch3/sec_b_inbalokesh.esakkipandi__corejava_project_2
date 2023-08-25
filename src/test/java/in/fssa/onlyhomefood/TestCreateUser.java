@@ -30,7 +30,7 @@ public class TestCreateUser {
 		newUser.setPassword("Inba123098");
 
 		assertDoesNotThrow(() -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 		});
 	}
 
@@ -39,7 +39,7 @@ public class TestCreateUser {
 	public void testCreateUserWithInvaidInput() {
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(null);
+			userService.createNewUser(null);
 		});
 		String expectedMessage = "User cannot be null";
 		String receivedMessage = exception.getMessage();
@@ -58,7 +58,7 @@ public class TestCreateUser {
 		newUser.setPassword("Abcd1234");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 		});
 
 		String expectedMessage = "Email cannot be null or empty";
@@ -78,7 +78,7 @@ public class TestCreateUser {
 		newUser.setMobNumber(9922334453l);
 		newUser.setPassword("Abcd1234");
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 
@@ -99,7 +99,7 @@ public class TestCreateUser {
 		newUser.setPassword(null);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 		});
 
 		String expectedMessage = "Password cannot be null or empty";
@@ -119,7 +119,7 @@ public class TestCreateUser {
 		newUser.setMobNumber(9922334453l);
 		newUser.setPassword("");
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 
@@ -140,7 +140,7 @@ public class TestCreateUser {
 		newUser.setPassword("Inba12345");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 		});
 
 		String expectedMessage = "Name cannot be null or empty";
@@ -160,7 +160,7 @@ public class TestCreateUser {
 		newUser.setMobNumber(9922334453l);
 		newUser.setPassword("Inba12345");
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 
@@ -181,7 +181,7 @@ public class TestCreateUser {
 		newUser.setPassword("Inba12345");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 		String expectedMessage = "Mobile Number must start between 6 - 9 and have total of 10 digits";
@@ -202,7 +202,7 @@ public class TestCreateUser {
 		newUser.setPassword("Inba1234");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 		String expectedMessage = "Name must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
@@ -223,7 +223,7 @@ public class TestCreateUser {
 		newUser.setPassword("Inba12345");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 		String expectedMessage = "Invalid Email Id";
@@ -244,7 +244,7 @@ public class TestCreateUser {
 		newUser.setPassword("inba1234");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 		String expectedMessage = "Password does not match the requested pattern";
@@ -266,7 +266,7 @@ public class TestCreateUser {
 		newUser.setPassword("Inba123098");
 
 		Exception exception = assertThrows(ServiceException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 		String expectedMessage = "User already exist";
@@ -287,7 +287,7 @@ public class TestCreateUser {
 		newUser.setPassword("Inba123098");
 
 		Exception exception = assertThrows(ServiceException.class, () -> {
-			userService.create(newUser);
+			userService.createNewUser(newUser);
 
 		});
 		String expectedMessage = "User already exist";

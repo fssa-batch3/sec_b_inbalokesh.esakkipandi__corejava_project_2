@@ -18,11 +18,11 @@ public class ProductPriceService {
 	 * @throws ServiceException
 	 */
 //	FindAllPrice
-	public Set<ProductPrice> getAll() throws ServiceException {
-		ProductPriceDAO productPriceDao = new ProductPriceDAO();
+	public Set<ProductPrice> getAllProductPrice() throws ServiceException {
+		ProductPriceDAO productPriceDAO = new ProductPriceDAO();
 		Set<ProductPrice> productPriceList = null;
 		try {
-			productPriceList = productPriceDao.findAll();
+			productPriceList = productPriceDAO.findAll();
 
 		} catch (PersistenceException e) {
 			System.out.println(e);
@@ -39,13 +39,13 @@ public class ProductPriceService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void create(Timestamp uDate, int product_id, int price) throws ValidationException, ServiceException {
+	public void createPrice(Timestamp uDate, int product_id, int price) throws ValidationException, ServiceException {
 
 		try {
 			IntUtil.rejectIfInvalidId(price, "Price");
 			ProductValidator.isIdValid(product_id);
-			ProductPriceDAO productPriceDao = new ProductPriceDAO();
-			productPriceDao.create(uDate, product_id, price);
+			ProductPriceDAO productPriceDAO = new ProductPriceDAO();
+			productPriceDAO.create(uDate, product_id, price);
 
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
@@ -60,12 +60,12 @@ public class ProductPriceService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public Timestamp getDate(int product_id) throws ValidationException, ServiceException {
+	public Timestamp getModifiedDate(int product_id) throws ValidationException, ServiceException {
 		Timestamp d = null;
 		try {
 			ProductValidator.isIdValid(product_id);
-			ProductPriceDAO productPriceDao = new ProductPriceDAO();
-			d = productPriceDao.getDate(product_id);
+			ProductPriceDAO productPriceDAO = new ProductPriceDAO();
+			d = productPriceDAO.getDate(product_id);
 
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
@@ -82,15 +82,15 @@ public class ProductPriceService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void update(Timestamp uDate, int product_id, int price) throws ValidationException, ServiceException {
+	public void updatePrice(Timestamp uDate, int product_id, int price) throws ValidationException, ServiceException {
 
 		try {
 			IntUtil.rejectIfInvalidId(price, "Price");
 			IntUtil.rejectIfInvalidRange(price, "Set Price");
 			ProductValidator.isIdValid(product_id);
-			ProductPriceDAO productPriceDao = new ProductPriceDAO();
-			productPriceDao.update(uDate, product_id);
-			productPriceDao.create(uDate, product_id, price);
+			ProductPriceDAO productPriceDAO = new ProductPriceDAO();
+			productPriceDAO.update(uDate, product_id);
+			productPriceDAO.create(uDate, product_id, price);
 
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());

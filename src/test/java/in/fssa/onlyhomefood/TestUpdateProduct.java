@@ -27,7 +27,7 @@ public class TestUpdateProduct {
 		updateProduct.setQuantityType(random.generateRandomString(4));
 
 		assertDoesNotThrow(() -> {
-			productService.update(4, updateProduct);
+			productService.updateProduct(4, updateProduct);
 		});
 	}
 
@@ -37,7 +37,7 @@ public class TestUpdateProduct {
 
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(2, null);
+			productService.updateProduct(2, null);
 		});
 		String expectedMessage = "Product cannot be null";
 		String receivedMessage = exception.getMessage();
@@ -58,7 +58,7 @@ public class TestUpdateProduct {
 		updateProduct.setQuantityType("piece");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(0, updateProduct);
+			productService.updateProduct(0, updateProduct);
 		});
 
 		String expectedMessage = "Product Id cannot be zero or below zero";
@@ -80,7 +80,7 @@ public class TestUpdateProduct {
 		updateProduct.setQuantityType("piece");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1000, updateProduct);
+			productService.updateProduct(1000, updateProduct);
 		});
 
 		String expectedMessage = "Product not found";
@@ -102,7 +102,7 @@ public class TestUpdateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Food Type cannot be null or empty";
@@ -123,7 +123,7 @@ public class TestUpdateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Food Type cannot be null or empty";
@@ -144,7 +144,7 @@ public class TestUpdateProduct {
 		product.setQuantityType(null);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Quantity type cannot be null or empty";
@@ -165,7 +165,7 @@ public class TestUpdateProduct {
 		product.setQuantityType("");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Quantity type cannot be null or empty";
@@ -186,7 +186,7 @@ public class TestUpdateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Set Price range between 1 and 1000";
@@ -207,7 +207,7 @@ public class TestUpdateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Set Quantity range between 1 and 1000";
@@ -228,7 +228,7 @@ public class TestUpdateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Food type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
@@ -249,7 +249,7 @@ public class TestUpdateProduct {
 		product.setQuantityType("Dosa?");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Quantity type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";

@@ -27,7 +27,7 @@ public class ProductDAO{
 		Set<Product> productList = new HashSet<>();
 
 		try {
-			String query = "select * from products where is_active = 1";
+			String query = "SELECT id,name,type,quantity,quantity_type,is_active FROM products WHERE is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -67,7 +67,7 @@ public class ProductDAO{
 		Product product = null;
 
 		try {
-			String query = "select * from products where is_active = 1 AND id = ?";
+			String query = "SELECT id,name,type,quantity,quantity_type,is_active FROM products WHERE is_active = 1 AND id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, productId);
@@ -106,7 +106,7 @@ public class ProductDAO{
 		ResultSet rs = null;
 		
 		try {
-			String query = "select * from products where name=?";
+			String query = "SELECT 1 FROM products WHERE name=?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setString(1, product.getName());
@@ -115,7 +115,6 @@ public class ProductDAO{
 			if (rs.next() == true) {
 				throw new PersistenceException("Product already exist");
 			}
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,7 +139,7 @@ public class ProductDAO{
 		int generatedId = -1;
 		
 		try {
-			String query = "insert into products (name, type, quantity, quantity_type) values (?,?,?,?)";
+			String query = "INSERT INTO products (name, type, quantity, quantity_type) VALUES (?,?,?,?)";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -179,7 +178,7 @@ public class ProductDAO{
 		ResultSet rs = null;
 
 		try {
-			String query = "select * from products where is_active = 1 AND id = ?";
+			String query = "SELECT 1 FROM products WHERE is_active = 1 AND id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, id);
@@ -208,7 +207,7 @@ public class ProductDAO{
 		PreparedStatement ps = null;
 
 		try {
-			String query = "Update products set type = ?, quantity = ? , quantity_type = ?, modified_at = NOW() where id = ? AND is_active = 1";
+			String query = "UPDATE products SET type = ?, quantity = ? , quantity_type = ?, modified_at = NOW() WHERE id = ? AND is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
@@ -236,7 +235,7 @@ public class ProductDAO{
 		PreparedStatement ps = null;
 
 		try {
-			String query = "Update products set is_active = 0 where id = ? AND is_active = 1";
+			String query = "UPDATE products SET is_active = 0 WHERE id = ? AND is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 

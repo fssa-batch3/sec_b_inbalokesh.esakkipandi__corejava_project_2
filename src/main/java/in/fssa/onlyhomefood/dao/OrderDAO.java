@@ -26,7 +26,7 @@ public class OrderDAO {
 		ResultSet rs = null;
 		
 		try {
-			String query = "insert into orders (quantity, total_price, delivery_time, order_status, created_by, address, product_id) values (?,?,?,?,?,?,?)";
+			String query = "INSERT INTO orders (quantity, total_price, delivery_time, order_status, created_by, address, product_id) VALUES (?,?,?,?,?,?,?)";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			
@@ -64,7 +64,7 @@ public class OrderDAO {
 		Set<Order> orderList = new HashSet<>();
 		
 		try {
-		String query = "select * from orders";
+		String query = "SELECT id,quantity,total_price,delivery_time,order_status,created_by,address,product_id FROM orders";
 		con = ConnectionUtil.getConnection();
 		ps = con.prepareStatement(query);
 		rs = ps.executeQuery();

@@ -15,11 +15,11 @@ public class UserService {
 	 * @return
 	 * @throws ServiceException
 	 */
-	public Set<User> getAll() throws ServiceException {
-		UserDAO userDao = new UserDAO();
+	public Set<User> getAllUsers() throws ServiceException {
+		UserDAO userDAO = new UserDAO();
 		Set<User> userList = null;
 		try {
-			userList = userDao.findAll();
+			userList = userDAO.findAll();
 			
 		} catch (PersistenceException e) {
 			System.out.println(e);
@@ -34,13 +34,13 @@ public class UserService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public User findById(int userId) throws ValidationException, ServiceException {
+	public User findUserById(int userId) throws ValidationException, ServiceException {
 		
 		User user = null;
 		try {
 			UserValidator.isIdValid(userId);
-			UserDAO userDao = new UserDAO();
-			user = userDao.findById(userId);
+			UserDAO userDAO = new UserDAO();
+			user = userDAO.findById(userId);
 			
 		} catch (PersistenceException e) {
 			e.printStackTrace();
@@ -55,12 +55,12 @@ public class UserService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void create(User newUser) throws ValidationException, ServiceException {
+	public void createNewUser(User newUser) throws ValidationException, ServiceException {
 
 		try {
 			UserValidator.validate(newUser);
-			UserDAO userDao = new UserDAO();
-			userDao.create(newUser);
+			UserDAO userDAO = new UserDAO();
+			userDAO.create(newUser);
 		} catch (PersistenceException e) {
 			System.out.println(e);
 			throw new ServiceException(e.getMessage());
@@ -73,13 +73,13 @@ public class UserService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void update(int id, User updateUser) throws ValidationException, ServiceException {
+	public void updateUser(int id, User updateUser) throws ValidationException, ServiceException {
 
 		try {
 			UserValidator.isIdValid(id);
 			UserValidator.validate(updateUser);
-			UserDAO newUserDao = new UserDAO();
-			newUserDao.update(id, updateUser);
+			UserDAO newUserDAO = new UserDAO();
+			newUserDAO.update(id, updateUser);
 			
 		} catch (PersistenceException e) {
 			e.printStackTrace();
@@ -92,12 +92,12 @@ public class UserService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void delete(int id) throws ValidationException, ServiceException {
+	public void deleteUser(int id) throws ValidationException, ServiceException {
 
 		try {
 			UserValidator.isIdValid(id);
-			UserDAO newUserDao = new UserDAO();
-			newUserDao.delete(id);
+			UserDAO newUserDAO = new UserDAO();
+			newUserDAO.delete(id);
 		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException("Failed to " + e.getMessage());

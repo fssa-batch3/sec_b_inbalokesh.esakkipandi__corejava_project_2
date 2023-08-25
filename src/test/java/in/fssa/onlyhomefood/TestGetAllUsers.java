@@ -18,7 +18,7 @@ public class TestGetAllUsers {
 	public void testGetAllUsers() {
 		UserService userService = new UserService();
 		assertDoesNotThrow(() -> {
-			Set<User> users = userService.getAll();
+			Set<User> users = userService.getAllUsers();
 			for(User u : users) {
 				System.out.println(u);			
 			}
@@ -31,7 +31,7 @@ public class TestGetAllUsers {
 		UserService userService = new UserService();
 
 		assertDoesNotThrow(() -> {
-			System.out.println(userService.findById(2));
+			System.out.println(userService.findUserById(2));
 		});
 	}
 
@@ -41,7 +41,7 @@ public class TestGetAllUsers {
 
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.findById(0);
+			userService.findUserById(0);
 		});
 
 		String expectedMessage = "User Id cannot be zero or below zero";
@@ -55,7 +55,7 @@ public class TestGetAllUsers {
 
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.findById(1000);
+			userService.findUserById(1000);
 		});
 
 		String expectedMessage = "User not found";

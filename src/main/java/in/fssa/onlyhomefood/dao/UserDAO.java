@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import in.fssa.onlyhomefood.Interface.UserInterface;
 import in.fssa.onlyhomefood.exception.PersistenceException;
+import in.fssa.onlyhomefood.interfaces.UserInterface;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
@@ -25,7 +25,7 @@ public class UserDAO implements UserInterface {
 		Set<User> userList = new HashSet<>();
 
 		try {
-			String query = "SELECT * FROM users WHERE is_active = 1";
+			String query = "SELECT id,user_name,phone_number,email,password,is_active FROM users WHERE is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -63,7 +63,7 @@ public class UserDAO implements UserInterface {
 		User user = null;
 
 		try {
-			String query = "SELECT * FROM users WHERE is_active = 1 AND id = ?";
+			String query = "SELECT id,user_name,phone_number,email,password,is_active FROM users WHERE is_active = 1 AND id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, userId);
@@ -99,7 +99,7 @@ public class UserDAO implements UserInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * FROM users WHERE is_active = 1 AND phone_number = ? OR email = ?";
+			String query = "SELECT phone_number,email FROM users WHERE is_active = 1 AND phone_number = ? OR email = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setLong(1, newUser.getMobNumber());
@@ -181,7 +181,7 @@ public class UserDAO implements UserInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * FROM users WHERE is_active = 1 AND id = ?";
+			String query = "SELECT 1 FROM users WHERE is_active = 1 AND id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, id);

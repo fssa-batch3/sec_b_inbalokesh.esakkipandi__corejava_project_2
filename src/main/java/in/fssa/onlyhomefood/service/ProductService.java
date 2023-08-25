@@ -17,16 +17,16 @@ public class ProductService {
 	 * @return
 	 * @throws ServiceException
 	 */
-	public Set<Product> getAll() throws ServiceException {
+	public Set<Product> getAllProducts() throws ServiceException {
 
 		Set<Product> productList = null;
 		try {
-			ProductDAO productDao = new ProductDAO();
-			ProductPriceDAO priceDao = new ProductPriceDAO();
-			productList = productDao.findAll();
+			ProductDAO productDAO = new ProductDAO();
+			ProductPriceDAO priceDAO = new ProductPriceDAO();
+			productList = productDAO.findAll();
 
 			for (Product list : productList) {
-				int price = priceDao.getPrices(list.getId());
+				int price = priceDAO.getPrice(list.getId());
 				list.setPrice(price);
 			}
 
@@ -44,15 +44,15 @@ public class ProductService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public Product findById(int productId) throws ValidationException, ServiceException {
+	public Product findProductById(int productId) throws ValidationException, ServiceException {
 
 		Product product = null;
 		try {
 			ProductValidator.isIdValid(productId);
-			ProductDAO productDao = new ProductDAO();
-			ProductPriceDAO priceDao = new ProductPriceDAO();
-			product = productDao.findById(productId);
-			int price = priceDao.getPrices(productId);
+			ProductDAO productDAO = new ProductDAO();
+			ProductPriceDAO priceDAO = new ProductPriceDAO();
+			product = productDAO.findById(productId);
+			int price = priceDAO.getPrice(productId);
 			product.setPrice(price);
 
 		} catch (PersistenceException e) {
@@ -68,19 +68,19 @@ public class ProductService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void create(Product product) throws ValidationException, ServiceException {
+	public void createNewProduct(Product product) throws ValidationException, ServiceException {
 
 		int generatedId = -1;
 		Timestamp d = null;
 
 		try {
-			ProductDAO productDao = new ProductDAO();
+			ProductDAO productDAO = new ProductDAO();
 			ProductPriceService productPriceService = new ProductPriceService();
 			ProductValidator.validate(product);
-			productDao.checkNameIsPresent(product);
-			generatedId = productDao.create(product);
-			d = productPriceService.getDate(generatedId);
-			productPriceService.create(d, generatedId, product.getPrice());
+			productDAO.checkNameIsPresent(product);
+			generatedId = productDAO.create(product);
+			d = productPriceService.getModifiedDate(generatedId);
+			productPriceService.createPrice(d, generatedId, product.getPrice());
 
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
@@ -94,11 +94,11 @@ public class ProductService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void update(int id, Product product) throws ValidationException, ServiceException {
+	public void updateProduct(int id, Product product) throws ValidationException, ServiceException {
 
 		Timestamp d = null;
 		try {
-			ProductDAO productDao = new ProductDAO();
+			ProductDAO productDAO = new ProductDAO();
 			ProductPriceService productPriceService = new ProductPriceService();
 
 //			Vaidate id and product
@@ -106,9 +106,9 @@ public class ProductService {
 			ProductValidator.isIdValid(id);
 
 //			Update details
-			productDao.update(id, product);
-			d = productPriceService.getDate(id);
-			productPriceService.update(d, id, product.getPrice());
+			productDAO.update(id, product);
+			d = productPriceService.getModifiedDate(id);
+			productPriceService.updatePrice(d, id, product.getPrice());
 
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
@@ -121,12 +121,12 @@ public class ProductService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void delete(int id) throws ValidationException, ServiceException {
+	public void deleteProduct(int id) throws ValidationException, ServiceException {
 
 		try {
-			ProductDAO productDao = new ProductDAO();
+			ProductDAO productDAO = new ProductDAO();
 			ProductValidator.isIdValid(id);
-			productDao.delete(id);
+			productDAO.delete(id);
 		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());

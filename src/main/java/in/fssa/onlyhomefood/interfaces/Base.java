@@ -1,4 +1,4 @@
-package in.fssa.onlyhomefood.Interface;
+package in.fssa.onlyhomefood.interfaces;
 
 import java.util.Set;
 

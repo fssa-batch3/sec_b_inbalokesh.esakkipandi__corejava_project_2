@@ -1,4 +1,4 @@
-package in.fssa.onlyhomefood.Interface;
+package in.fssa.onlyhomefood.interfaces;
 
 import in.fssa.onlyhomefood.model.User;
 

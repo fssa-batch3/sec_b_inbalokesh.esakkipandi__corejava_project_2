@@ -40,8 +40,8 @@ public class ProductValidator {
 		
 		try {
 			IntUtil.rejectIfInvalidId(id, "Product Id");
-			ProductDAO productDao = new ProductDAO();
-			productDao.checkIdExists(id);
+			ProductDAO productDAO = new ProductDAO();
+			productDAO.checkIdExists(id);
 		} catch (PersistenceException e) {
 			throw new ValidationException(e.getMessage());
 		}

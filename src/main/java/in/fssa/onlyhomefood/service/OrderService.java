@@ -15,12 +15,12 @@ public class OrderService {
 	 * @return
 	 * @throws ServiceException
 	 */
-	public Set<Order> getAll() throws ServiceException {
+	public Set<Order> getAllOrders() throws ServiceException {
 		
 		Set<Order> orderList = null;
 		try {
-			OrderDAO orderDao = new OrderDAO();
-			orderList = orderDao.findAll();
+			OrderDAO orderDAO = new OrderDAO();
+			orderList = orderDAO.findAll();
 			
 		}catch(PersistenceException e) {
 			throw new ServiceException(e.getMessage());
@@ -36,13 +36,13 @@ public class OrderService {
 	 * @throws ValidationException
 	 * @throws ServiceException
 	 */
-	public void create (Order order) throws ValidationException, ServiceException {
+	public void createNewOrder (Order order) throws ValidationException, ServiceException {
 		
 		try {
 			OrderValidator.validate(order);
 			OrderValidator.checkIdExist(order);
-			OrderDAO orderDao = new OrderDAO();
-			orderDao.create(order);
+			OrderDAO orderDAO = new OrderDAO();
+			orderDAO.create(order);
 			
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());

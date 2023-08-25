@@ -16,11 +16,11 @@ public class TestDeleteProduct {
 	public void testDeleteProductWithValidInput() {
 
 		ProductService productService = new ProductService();
-		ProductDAO productDao = new ProductDAO();
+		ProductDAO productDAO = new ProductDAO();
 		
-		int id = productDao.getLastUpdatedUserId();
+		int id = productDAO.getLastUpdatedUserId();
 		assertDoesNotThrow(() -> {
-			productService.delete(id);
+			productService.deleteProduct(id);
 		});
 	}
 	
@@ -30,7 +30,7 @@ public class TestDeleteProduct {
 		
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.delete(0);
+			productService.deleteProduct(0);
 		});
 		
 		String expectedMessage = "Product Id cannot be zero or below zero";
@@ -44,7 +44,7 @@ public class TestDeleteProduct {
 		
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.delete(1000);
+			productService.deleteProduct(1000);
 		});
 		
 		String expectedMessage = "Product not found";

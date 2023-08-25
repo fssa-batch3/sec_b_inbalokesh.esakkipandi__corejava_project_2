@@ -28,7 +28,7 @@ public class TestCreateProduct {
 		product.setQuantityType("piece");
 
 		assertDoesNotThrow(() -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 	}
 
@@ -38,7 +38,7 @@ public class TestCreateProduct {
 
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(null);
+			productService.createNewProduct(null);
 		});
 		String expectedMessage = "Product cannot be null";
 		String receivedMessage = exception.getMessage();
@@ -58,7 +58,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Food Name cannot be null or empty";
@@ -79,7 +79,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Food Name cannot be null or empty";
@@ -100,7 +100,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Food Type cannot be null or empty";
@@ -121,7 +121,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Food Type cannot be null or empty";
@@ -142,7 +142,7 @@ public class TestCreateProduct {
 		product.setQuantityType(null);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Quantity type cannot be null or empty";
@@ -163,7 +163,7 @@ public class TestCreateProduct {
 		product.setQuantityType("");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Quantity type cannot be null or empty";
@@ -184,7 +184,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Set Price range between 1 and 1000";
@@ -205,7 +205,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Set Quantity range between 1 and 1000";
@@ -227,7 +227,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Food Name must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
@@ -248,7 +248,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Food type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
@@ -269,7 +269,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa?");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Quantity type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
@@ -290,7 +290,7 @@ public class TestCreateProduct {
 		product.setQuantityType("Dosa");
 
 		Exception exception = assertThrows(ServiceException.class, () -> {
-			productService.create(product);
+			productService.createNewProduct(product);
 		});
 
 		String expectedMessage = "Product already exist";

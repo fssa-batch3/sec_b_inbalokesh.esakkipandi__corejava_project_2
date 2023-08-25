@@ -15,12 +15,12 @@ public class TestDeleteUser {
 	@Test
 	public void testDeleteUserWithValidInput() {
 		UserService userService = new UserService();
-		UserDAO del = new UserDAO();
+		UserDAO userDAO = new UserDAO();
 		
-		int id = del.getLastUpdatedUserId();
+		int id = userDAO.getLastUpdatedUserId();
 		
 		assertDoesNotThrow(() -> {
-			userService.delete(id);
+			userService.deleteUser(id);
 		});
 	}
 
@@ -30,7 +30,7 @@ public class TestDeleteUser {
 
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.delete(0);
+			userService.deleteUser(0);
 		});
 
 		String expectedMessage = "User Id cannot be zero or below zero";
@@ -44,7 +44,7 @@ public class TestDeleteUser {
 
 		UserService userService = new UserService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.delete(100);
+			userService.deleteUser(100);
 		});
 
 		String expectedMessage = "User not found";
