@@ -19,7 +19,6 @@ public class TestCreateProduct {
 //	Test Product with valid input
 	@Test
 	public void testCreateProductWithValidInput() {
-
 		ProductService productService = new ProductService();
 		Product product = new Product();
 		product.setName(random.generateRandomString(5));
