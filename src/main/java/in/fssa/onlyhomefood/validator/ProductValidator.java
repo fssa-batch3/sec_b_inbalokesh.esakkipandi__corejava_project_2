@@ -23,11 +23,12 @@ public class ProductValidator {
 		StringUtil.rejectIfInvalidString(product.getName(), "Food Name");
 		StringUtil.rejectIfInvalidString(product.getType(), "Food Type");
 		StringUtil.rejectIfInvalidString(product.getQuantityType(), "Quantity type");
+		StringUtil.rejectIfInvalidString(product.getImage(), "Image url");
 		
 //		Patterns
 		StringUtil.rejectIfInvalidName(product.getName(), "Food Name");
 		StringUtil.rejectIfInvalidName(product.getType(), "Food type");
-		StringUtil.rejectIfInvalidName(product.getQuantityType(), "Quantity type");
+		StringUtil.rejectIfInvalidQuantityType(product.getQuantityType(), "Quantity type");
 		IntUtil.rejectIfInvalidRange(product.getQuantity(), "Set Quantity");
 		IntUtil.rejectIfInvalidRange(product.getPrice(), "Set Price");
 	}

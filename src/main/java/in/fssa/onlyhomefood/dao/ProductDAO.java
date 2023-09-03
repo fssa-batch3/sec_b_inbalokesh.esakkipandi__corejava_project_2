@@ -27,7 +27,7 @@ public class ProductDAO{
 		Set<Product> productList = new HashSet<>();
 
 		try {
-			String query = "SELECT id,name,type,quantity,quantity_type,is_active FROM products WHERE is_active = 1";
+			String query = "SELECT id,name,type,quantity,quantity_type,image,is_active FROM products WHERE is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -38,6 +38,7 @@ public class ProductDAO{
 				product.setType(rs.getString("type"));
 				product.setQuantity(rs.getInt("quantity"));
 				product.setQuantityType(rs.getString("quantity_type"));
+				product.setImage(rs.getString("image"));
 				product.setIs_active(rs.getBoolean("is_active"));
 				
 				productList.add(product);
@@ -67,7 +68,7 @@ public class ProductDAO{
 		Product product = null;
 
 		try {
-			String query = "SELECT id,name,type,quantity,quantity_type,is_active FROM products WHERE is_active = 1 AND id = ?";
+			String query = "SELECT id,name,type,quantity,quantity_type,image,is_active FROM products WHERE is_active = 1 AND id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 			ps.setInt(1, productId);
@@ -80,6 +81,7 @@ public class ProductDAO{
 				product.setType(rs.getString("type"));
 				product.setQuantity(rs.getInt("quantity"));
 				product.setQuantityType(rs.getString("quantity_type"));
+				product.setImage(rs.getString("image"));
 				product.setIs_active(rs.getBoolean("is_active"));
 
 			}
@@ -139,7 +141,7 @@ public class ProductDAO{
 		int generatedId = -1;
 		
 		try {
-			String query = "INSERT INTO products (name, type, quantity, quantity_type) VALUES (?,?,?,?)";
+			String query = "INSERT INTO products (name, type, quantity, quantity_type, image) VALUES (?,?,?,?,?)";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -147,6 +149,7 @@ public class ProductDAO{
 			ps.setString(2, newProduct.getType());
 			ps.setInt(3, newProduct.getQuantity());
 			ps.setString(4, newProduct.getQuantityType());
+			ps.setString(5, newProduct.getImage());
 
 			ps.executeUpdate();
 			
@@ -207,14 +210,15 @@ public class ProductDAO{
 		PreparedStatement ps = null;
 
 		try {
-			String query = "UPDATE products SET type = ?, quantity = ? , quantity_type = ?, modified_at = NOW() WHERE id = ? AND is_active = 1";
+			String query = "UPDATE products SET type = ?, quantity = ? , quantity_type = ?, image = ?, modified_at = NOW() WHERE id = ? AND is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
 			ps.setString(1, updateProduct.getType());
 			ps.setInt(2, updateProduct.getQuantity());
 			ps.setString(3, updateProduct.getQuantityType());
-			ps.setInt(4, id);
+			ps.setString(4, updateProduct.getImage());
+			ps.setInt(5, id);
 
 			ps.executeUpdate();
 

@@ -25,6 +25,7 @@ public class TestUpdateProduct {
 		updateProduct.setQuantity(1);
 		updateProduct.setPrice(18);
 		updateProduct.setQuantityType(random.generateRandomString(4));
+		updateProduct.setImage(random.generateRandomString(7));
 
 		assertDoesNotThrow(() -> {
 			productService.updateProduct(4, updateProduct);
@@ -56,6 +57,7 @@ public class TestUpdateProduct {
 		updateProduct.setQuantity(1);
 		updateProduct.setPrice(18);
 		updateProduct.setQuantityType("piece");
+		updateProduct.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(0, updateProduct);
@@ -78,6 +80,8 @@ public class TestUpdateProduct {
 		updateProduct.setQuantity(1);
 		updateProduct.setPrice(18);
 		updateProduct.setQuantityType("piece");
+		updateProduct.setImage("https://iili.io/HgW7hwF.md.jpg");
+
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1000, updateProduct);
@@ -100,6 +104,8 @@ public class TestUpdateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
+
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
@@ -121,6 +127,8 @@ public class TestUpdateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
+
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
@@ -142,6 +150,7 @@ public class TestUpdateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType(null);
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
@@ -163,12 +172,57 @@ public class TestUpdateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 		});
 
 		String expectedMessage = "Quantity type cannot be null or empty";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+	
+//	Test Update Image url is Null
+	@Test
+	public void testCreateProductWithImageNull() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Dosa");
+		product.setType("Veg");
+		product.setQuantity(2);
+		product.setPrice(19);
+		product.setQuantityType("Dosa");
+		product.setImage(null);
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.updateProduct(1, product);
+		});
+
+		String expectedMessage = "Image url cannot be null or empty";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+
+//	Test Update Image url is Empty
+	@Test
+	public void testCreateProductWithImageEmpty() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Dosa");
+		product.setType("Veg");
+		product.setQuantity(2);
+		product.setPrice(19);
+		product.setQuantityType("Dosa");
+		product.setImage("");
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.updateProduct(1, product);
+		});
+
+		String expectedMessage = "Image url cannot be null or empty";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
@@ -184,6 +238,7 @@ public class TestUpdateProduct {
 		product.setQuantity(2);
 		product.setPrice(0);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
@@ -205,6 +260,7 @@ public class TestUpdateProduct {
 		product.setQuantity(1001);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
@@ -226,6 +282,7 @@ public class TestUpdateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
@@ -247,12 +304,13 @@ public class TestUpdateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa?");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 		});
 
-		String expectedMessage = "Quantity type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
+		String expectedMessage = "Quantity type must contain only alphabets with minimum 2 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}

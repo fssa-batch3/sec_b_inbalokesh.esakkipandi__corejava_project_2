@@ -13,8 +13,9 @@ import in.fssa.onlyhomefood.service.ProductService;
 import in.fssa.onlyhomefood.util.RandomGenerator;
 
 public class TestCreateProduct {
-	
+
 	RandomGenerator random = new RandomGenerator();
+
 //	Test Product with valid input
 	@Test
 	public void testCreateProductWithValidInput() {
@@ -26,6 +27,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("piece");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		assertDoesNotThrow(() -> {
 			productService.createNewProduct(product);
@@ -56,6 +58,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -77,6 +80,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -98,6 +102,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -119,6 +124,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -140,6 +146,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType(null);
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -171,6 +178,50 @@ public class TestCreateProduct {
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
 
+//	Test Image url is Null
+	@Test
+	public void testCreateProductWithImageNull() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Dosa");
+		product.setType("Veg");
+		product.setQuantity(2);
+		product.setPrice(19);
+		product.setQuantityType("Dosa");
+		product.setImage(null);
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.createNewProduct(product);
+		});
+
+		String expectedMessage = "Image url cannot be null or empty";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+
+//	Test Image url is Empty
+	@Test
+	public void testCreateProductWithImageEmpty() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Dosa");
+		product.setType("Veg");
+		product.setQuantity(2);
+		product.setPrice(19);
+		product.setQuantityType("Dosa");
+		product.setImage("");
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.createNewProduct(product);
+		});
+
+		String expectedMessage = "Image url cannot be null or empty";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+
 //	Test Price range between 1 and 1000
 	@Test
 	public void testCreateProductWithPriceRange() {
@@ -182,6 +233,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(0);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -203,6 +255,7 @@ public class TestCreateProduct {
 		product.setQuantity(1001);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -225,6 +278,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -246,6 +300,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
@@ -267,12 +322,13 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa?");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createNewProduct(product);
 		});
 
-		String expectedMessage = "Quantity type must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters";
+		String expectedMessage = "Quantity type must contain only alphabets with minimum 2 letters can have characters like(',-) with a single space and followed by letters";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
@@ -288,6 +344,7 @@ public class TestCreateProduct {
 		product.setQuantity(2);
 		product.setPrice(19);
 		product.setQuantityType("Dosa");
+		product.setImage("https://iili.io/HgW7hwF.md.jpg");
 
 		Exception exception = assertThrows(ServiceException.class, () -> {
 			productService.createNewProduct(product);

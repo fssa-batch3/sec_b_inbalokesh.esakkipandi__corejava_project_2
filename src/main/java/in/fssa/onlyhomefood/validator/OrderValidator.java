@@ -31,7 +31,7 @@ public class OrderValidator {
 			throw new ValidationException("Order cannot be null");
 		}
 		if (order.getDelivery_time() == null) {
-			throw new ValidationException("Invalid Order deliveryTime");
+			throw new ValidationException("Delivery Time is not selected");
 		}
 		if (order.getOrder_status() == null) {
 			throw new ValidationException("Invalid Order status");
@@ -47,7 +47,6 @@ public class OrderValidator {
 		
 //		Patterns
 		rejectIfInvalidQuanityOrder(order.getQuantity(), "Quantity");
-		
 		
 	}
 	/**

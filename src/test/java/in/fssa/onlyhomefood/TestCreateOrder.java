@@ -25,7 +25,7 @@ public class TestCreateOrder {
 		newOrder.setTotal_price(56);
 		newOrder.setDelivery_time(DeliveryTime.Breakfast);
 		newOrder.setOrder_status(OrderStatus.Not_delivered);
-		newOrder.setCreated_by(3);
+		newOrder.setCreated_by(2);
 		newOrder.setAddress("Perugudi Chennai");
 		newOrder.setProduct_id(2);
 
@@ -42,6 +42,50 @@ public class TestCreateOrder {
 			orderService.createNewOrder(null);
 		});
 		String expectedMessage = "Order cannot be null";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+	
+//	Test Order Delivery time is Null
+	@Test
+	public void testCreateOrderWithDeliveryTimeNull() {
+		
+		OrderService orderService = new OrderService();
+		Order newOrder = new Order();
+		newOrder.setQuantity(3);
+		newOrder.setTotal_price(57);
+		newOrder.setDelivery_time(null);
+		newOrder.setOrder_status(OrderStatus.Not_delivered);
+		newOrder.setCreated_by(1);
+		newOrder.setAddress("Chennai");
+		newOrder.setProduct_id(3);
+		
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			orderService.createNewOrder(newOrder);
+		});
+		String expectedMessage = "Delivery Time is not selected";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+	
+//	Test Order Status is Null
+	@Test
+	public void testCreateOrderWithStatusNull() {
+		
+		OrderService orderService = new OrderService();
+		Order newOrder = new Order();
+		newOrder.setQuantity(3);
+		newOrder.setTotal_price(57);
+		newOrder.setDelivery_time(DeliveryTime.Breakfast);
+		newOrder.setOrder_status(null);
+		newOrder.setCreated_by(1);
+		newOrder.setAddress("Chennai");
+		newOrder.setProduct_id(3);
+		
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			orderService.createNewOrder(newOrder);
+		});
+		String expectedMessage = "Invalid Order status";
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}

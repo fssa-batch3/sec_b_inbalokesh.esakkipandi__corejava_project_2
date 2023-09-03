@@ -57,6 +57,21 @@ public class StringUtil {
 			throw new ValidationException(inputName.concat(" must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters"));
 		}
 	}
+	
+	/**
+	 * 
+	 * @param quantityType
+	 * @throws ValidationException
+	 */
+	public static void rejectIfInvalidQuantityType(String quantityType, String inputQuantityType) throws ValidationException {
+
+		String regex = "^(?=.{1,30}$)[a-zA-Z]{2,}(?:[ '-][a-zA-Z]+)*$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(quantityType);
+		if (matcher.matches() == false) {
+			throw new ValidationException(inputQuantityType.concat(" must contain only alphabets with minimum 2 letters can have characters like(',-) with a single space and followed by letters"));
+		}
+	}
 
 	/**
 	 * 

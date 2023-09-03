@@ -3,6 +3,7 @@ package in.fssa.onlyhomefood.model;
 public class ProductEntity {
 
 	private int id;
+	private String image;
 	private String name;
 	private String type;
 	private int price;
@@ -30,6 +31,13 @@ public class ProductEntity {
 		this.name = name;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public String getType() {
 		return type;
 	}
@@ -89,5 +97,6 @@ public class ProductEntity {
 //			 return ( this.getProduct_id() > o.getProduct_id()) ? 1: -1;
 		}
 	}
+
 
 }
