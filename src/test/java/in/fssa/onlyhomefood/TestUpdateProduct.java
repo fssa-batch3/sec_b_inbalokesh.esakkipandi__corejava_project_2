@@ -18,7 +18,6 @@ public class TestUpdateProduct {
 	public void testUpdateProductWithValidInput() {
 
 		ProductService productService = new ProductService();
-
 		Product updateProduct = new Product();
 		updateProduct.setName("Dosa");
 		updateProduct.setType("Veg");
