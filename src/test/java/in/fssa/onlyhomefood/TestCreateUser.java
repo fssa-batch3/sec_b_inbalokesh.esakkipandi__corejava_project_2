@@ -13,13 +13,13 @@ import in.fssa.onlyhomefood.service.UserService;
 import in.fssa.onlyhomefood.util.RandomGenerator;
 
 public class TestCreateUser {
-	
+
 	RandomGenerator random = new RandomGenerator();
+
 	// Valid Input
 	@Test
 	public void testCreateUserWithValidInput() {
 
-		
 		UserService userService = new UserService();
 		User newUser = new User();
 		String randomString = random.generateRandomString(5);
@@ -189,7 +189,7 @@ public class TestCreateUser {
 		assertTrue(expectedMessage.equals(receivedMessage));
 
 	}
-	
+
 	// Name Pattern check
 	@Test
 	public void testUserWithNameInValidPattern() {
@@ -252,7 +252,7 @@ public class TestCreateUser {
 		assertTrue(expectedMessage.equals(receivedMessage));
 
 	}
-	
+
 	// User already exist
 	@Test
 	public void testCreateUserEmailCheck() {
@@ -273,7 +273,7 @@ public class TestCreateUser {
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
-	
+
 	// User already exist
 	@Test
 	public void testCreateUserPhoneNumberCheck() {
@@ -294,4 +294,105 @@ public class TestCreateUser {
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
+
+	// Login test case
+
+	// Test Longin With Valid Input
+	@Test
+	public void testLoginUserWithValidInput() {
+
+		UserService userService = new UserService();
+
+		assertDoesNotThrow(() -> {
+			userService.loginUser(8888834458l, "Inba1234");
+		});
+	}
+
+	// Password null check
+	@Test
+	public void testLoginUserWithPasswordNull() {
+		UserService userService = new UserService();
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			userService.loginUser(9999888877l, null);
+		});
+
+		String expectedMessage = "Password cannot be null or empty";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+
+	// Password is Empty
+	@Test
+	public void testLoginUserWithPasswordEmpty() {
+
+		UserService userService = new UserService();
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			userService.loginUser(9999888877l, "");
+		});
+
+		String expectedMessage = "Password cannot be null or empty";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+
+	// Number check
+	@Test
+	public void testLoginUserWithMoblieNumberInValid() {
+
+		UserService userService = new UserService();
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			userService.loginUser(1999888877l, "Inba1234");
+		});
+
+		String expectedMessage = "Mobile Number must start between 6 - 9 and have total of 10 digits";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+
+	}
+
+	// Password Pattern check
+	@Test
+	public void testLoginUserWithPasswordInValidPattern() {
+
+		UserService userService = new UserService();
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			userService.loginUser(9999888877l, "inba1234");
+		});
+		String expectedMessage = "Password does not match the requested pattern";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+
+	}
+
+	// Invalid login credentials
+	@Test
+	public void testLoginUserWithInvalidLoginCredentails() {
+		UserService userService = new UserService();
+
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			userService.loginUser(9999888877l, "Inba5465");
+		});
+
+		String expectedMessage = "Invalid Login Credentials";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+
+	// Invalid login credentials2
+	@Test
+	public void testLoginUserWithInvalidLoginCredentails2() {
+		UserService userService = new UserService();
+
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			userService.loginUser(8888834458l, "Inba009988");
+		});
+
+		String expectedMessage = "Invalid Login Credentials";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+
 }

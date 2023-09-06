@@ -14,7 +14,7 @@ import in.fssa.onlyhomefood.util.ConnectionUtil;
 
 public class UserDAO implements UserInterface {
 	/**
-	 * @return 
+	 * @return
 	 * @throws PersistenceException
 	 */
 	public Set<User> findAll() throws PersistenceException {
@@ -50,8 +50,9 @@ public class UserDAO implements UserInterface {
 		}
 		return userList;
 	}
+
 	/**
-	 * @return
+	 * @return user
 	 * @param userId
 	 * @throws PersistenceException
 	 */
@@ -88,6 +89,46 @@ public class UserDAO implements UserInterface {
 		}
 		return user;
 	}
+	
+	/**
+	 * @return user
+	 * @param userPhoneNumber
+	 * @throws PersistenceException
+	 */
+	public User findByPhoneNumber(long userPhoneNumber) throws PersistenceException {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		User user = null;
+
+		try {
+			String query = "SELECT id,user_name,phone_number,email,password,is_active FROM users WHERE is_active = 1 AND phone_number = ?";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			ps.setLong(1, userPhoneNumber);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("id"));
+				user.setName(rs.getString("user_name"));
+				user.setMobNumber(rs.getLong("phone_number"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setActive(rs.getBoolean("is_active"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new PersistenceException(e.getMessage());
+
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
+		return user;
+	}
+
 	/**
 	 * @param newUser
 	 * @throws PersistenceException
@@ -139,6 +180,7 @@ public class UserDAO implements UserInterface {
 			ConnectionUtil.close(con, ps);
 		}
 	}
+
 	/**
 	 * @param id
 	 * @param updateUser
@@ -168,7 +210,7 @@ public class UserDAO implements UserInterface {
 			ConnectionUtil.close(con, ps);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -193,10 +235,11 @@ public class UserDAO implements UserInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
-		}  finally {
+		} finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
 	}
+
 	/**
 	 * @param id
 	 * @throws PersistenceException
@@ -222,30 +265,71 @@ public class UserDAO implements UserInterface {
 			ConnectionUtil.close(con, ps);
 		}
 	}
+
 	/**
 	 * 
-	 * @return
+	 * @param number
+	 * @param password
+	 * @throws PersistenceException
+	 */
+	public void checkUserCredentials(long number, String password) throws PersistenceException {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT password FROM users WHERE phone_number = ?";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+
+			ps.setLong(1, number);
+
+			rs = ps.executeQuery();
+			
+			
+			if(rs.next() == false) {
+				throw new PersistenceException("Invalid Login Credentials");
+			}
+			else{
+				if(!rs.getString("password").equals(password)) {
+					throw new PersistenceException("Invalid Login Credentials");
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
+
+	}
+
+	/**
+	 * 
+	 * @return userId
 	 */
 	public int getLastUpdatedUserId() {
-	    Connection conn = null;
-	    PreparedStatement ps = null;
-	    ResultSet rs = null;
-	    int userId = 0;
-	    try {
-	        String query = "SELECT id FROM users WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1";
-	        conn = ConnectionUtil.getConnection();
-	        ps = conn.prepareStatement(query);
-	        rs = ps.executeQuery();
-	        if (rs.next()) {
-	            userId = rs.getInt("id");   
-	        }
-	    } catch (SQLException e) {
-	        System.out.println(e.getMessage());
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int userId = 0;
+		try {
+			String query = "SELECT id FROM users WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				userId = rs.getInt("id");
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 //	        throw new PersistenceException(e.getMessage());
-	    } finally {
-	        ConnectionUtil.close(conn, ps, rs);
-	    }
-	    return userId;
+		} finally {
+			ConnectionUtil.close(conn, ps, rs);
+		}
+		return userId;
 	}
 
 }

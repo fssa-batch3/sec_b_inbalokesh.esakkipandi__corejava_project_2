@@ -62,4 +62,30 @@ public class TestGetAllUsers {
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
+	
+	//Test Get user by phone number
+	@Test
+	public void testFindUserWithPhoneNumber() {
+
+		UserService userService = new UserService();
+
+		assertDoesNotThrow(() -> {
+			System.out.println(userService.findUserByPhoneNumber(8888834458l));
+		});
+	}
+	
+	// Test With Invalid Phone_number
+	@Test
+	public void testFindUserWithInvalidPhoneNumber() {
+
+		UserService userService = new UserService();
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			userService.findUserByPhoneNumber(22222222222l);
+		});
+
+		String expectedMessage = "Phone Number must start between 6 - 9 and have total of 10 digits";
+		String receivedMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(receivedMessage));
+	}
+	
 }
