@@ -24,7 +24,6 @@ public class UserService {
 			userList = userDAO.findAll();
 
 		} catch (PersistenceException e) {
-			System.out.println(e);
 			throw new ServiceException(e.getMessage());
 		}
 		return userList;
@@ -46,7 +45,6 @@ public class UserService {
 			user = userDAO.findById(userId);
 
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
 		return user;
@@ -68,11 +66,11 @@ public class UserService {
 			user = userDAO.findByPhoneNumber(userPhoneNumber);
 
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
 		return user;
 	}
+
 	/**
 	 * 
 	 * @param newUser
@@ -86,7 +84,6 @@ public class UserService {
 			UserDAO userDAO = new UserDAO();
 			userDAO.create(newUser);
 		} catch (PersistenceException e) {
-			System.out.println(e);
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -107,7 +104,6 @@ public class UserService {
 			newUserDAO.update(id, updateUser);
 
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			throw new ServiceException("Failed to " + e.getMessage());
 		}
 	}
@@ -125,7 +121,6 @@ public class UserService {
 			UserDAO newUserDAO = new UserDAO();
 			newUserDAO.delete(id);
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			throw new ServiceException("Failed to " + e.getMessage());
 		}
 	}
@@ -137,10 +132,10 @@ public class UserService {
 			IntUtil.rejectIfInvalidNumber(number, "Mobile Number");
 			StringUtil.rejectIfInvalidString(password, "Password");
 			StringUtil.rejectIfInvalidPassword(password);
-			
+
 			UserDAO newUserDAO = new UserDAO();
 			newUserDAO.checkUserCredentials(number, password);
-			
+
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
 		}

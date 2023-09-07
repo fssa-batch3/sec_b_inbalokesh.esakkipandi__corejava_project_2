@@ -31,7 +31,6 @@ public class ProductService {
 			}
 
 		} catch (PersistenceException e) {
-			System.out.println(e);
 			throw new ServiceException(e.getMessage());
 		}
 		return productList;
@@ -56,7 +55,6 @@ public class ProductService {
 			product.setPrice(price);
 
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
 		return product;
@@ -128,7 +126,6 @@ public class ProductService {
 			ProductValidator.isIdValid(id);
 			productDAO.delete(id);
 		} catch (PersistenceException e) {
-			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
 	}

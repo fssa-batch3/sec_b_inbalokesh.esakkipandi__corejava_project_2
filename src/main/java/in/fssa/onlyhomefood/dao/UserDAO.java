@@ -41,7 +41,6 @@ public class UserDAO implements UserInterface {
 				userList.add(user);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -79,7 +78,6 @@ public class UserDAO implements UserInterface {
 				user.setActive(rs.getBoolean("is_active"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -117,7 +115,6 @@ public class UserDAO implements UserInterface {
 				user.setActive(rs.getBoolean("is_active"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -144,12 +141,11 @@ public class UserDAO implements UserInterface {
 			ps.setString(2, newUser.getEmail());
 			rs = ps.executeQuery();
 
-			if (rs.next() == true) {
+			if (rs.next()) {
 				throw new PersistenceException("User already exist");
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -166,7 +162,6 @@ public class UserDAO implements UserInterface {
 			ps.setString(4, newUser.getPassword());
 
 			ps.executeUpdate();
-			System.out.println("User has been created sucessfully");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -196,10 +191,8 @@ public class UserDAO implements UserInterface {
 			ps.setInt(3, id);
 
 			ps.executeUpdate();
-			System.out.println("User has been updated sucessfully");
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
@@ -228,7 +221,6 @@ public class UserDAO implements UserInterface {
 				throw new PersistenceException("User not found");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -253,7 +245,6 @@ public class UserDAO implements UserInterface {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
@@ -290,7 +281,6 @@ public class UserDAO implements UserInterface {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);

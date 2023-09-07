@@ -41,7 +41,6 @@ public class OrderDAO {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -79,7 +78,6 @@ public class OrderDAO {
 				orderList.add(order);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 
 		} finally {

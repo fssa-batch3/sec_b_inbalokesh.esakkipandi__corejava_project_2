@@ -50,10 +50,10 @@ public class StringUtil {
 //	Patterns
 	public static void rejectIfInvalidName(String name, String inputName) throws ValidationException {
 
-		String regex = "^(?=.{1,30}$)[a-zA-Z]{3,}(?:[ '-][a-zA-Z]+)*$";
+		String regex = "^[a-zA-Z]+(?:[' -][a-zA-Z]+){0,29}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(name);
-		if (matcher.matches() == false) {
+		if (!matcher.matches()) {
 			throw new ValidationException(inputName.concat(" must contain only alphabets with minimum 3 letters can have characters like(',-) with a single space and followed by letters"));
 		}
 	}
@@ -65,10 +65,10 @@ public class StringUtil {
 	 */
 	public static void rejectIfInvalidQuantityType(String quantityType, String inputQuantityType) throws ValidationException {
 
-		String regex = "^(?=.{1,30}$)[a-zA-Z]{2,}(?:[ '-][a-zA-Z]+)*$";
+		String regex = "^[a-zA-Z]+(?:[' -][a-zA-Z]+){0,29}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(quantityType);
-		if (matcher.matches() == false) {
+		if (!matcher.matches()) {
 			throw new ValidationException(inputQuantityType.concat(" must contain only alphabets with minimum 2 letters can have characters like(',-) with a single space and followed by letters"));
 		}
 	}
@@ -80,10 +80,10 @@ public class StringUtil {
 	 */
 	public static void rejectIfInvalidEmail(String email) throws ValidationException {
 
-		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";
+		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(email);
-		if (matcher.matches() == false) {
+		if (!matcher.matches()) {
 			throw new ValidationException("Invalid Email Id");
 		}
 	}
@@ -98,7 +98,7 @@ public class StringUtil {
 		String regex = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$";
 		Pattern patter = Pattern.compile(regex);
 		Matcher matcher = patter.matcher(password);
-		if (matcher.matches() == false) {
+		if (!matcher.matches()) {
 			throw new ValidationException("Password does not match the requested pattern");
 		}
 	}
@@ -110,10 +110,10 @@ public class StringUtil {
 	 */
 	public static void rejectIfInvalidAddress(String address) throws ValidationException {
 
-		String regex = "[a-zA-Z0-9.,-/()]+([ -][a-zA-Z0-9.,-/()]+)*";
+		String regex = "[a-zA-Z0-9.,-/()]+(?:[ -][a-zA-Z0-9.,-/()]+)*";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(address);
-		if (matcher.matches() == false) {
+		if (!matcher.matches()) {
 			throw new ValidationException("Invalid Address Pattern");
 		}
 	}

@@ -158,7 +158,6 @@ public class ProductDAO{
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -187,7 +186,6 @@ public class ProductDAO{
 				throw new PersistenceException("Product not found");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		}  finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -219,7 +217,6 @@ public class ProductDAO{
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
@@ -245,7 +242,6 @@ public class ProductDAO{
 			System.out.println("Product has been deleted sucessfully");
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);

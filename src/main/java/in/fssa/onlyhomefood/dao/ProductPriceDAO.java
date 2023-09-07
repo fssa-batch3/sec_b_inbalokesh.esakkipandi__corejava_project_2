@@ -42,7 +42,6 @@ public class ProductPriceDAO {
 				productPriceList.add(productPrice);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -76,7 +75,6 @@ public class ProductPriceDAO {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -108,7 +106,6 @@ public class ProductPriceDAO {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
@@ -136,7 +133,6 @@ public class ProductPriceDAO {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
@@ -168,7 +164,6 @@ public class ProductPriceDAO {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);

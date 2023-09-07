@@ -25,7 +25,6 @@ public class ProductPriceService {
 			productPriceList = productPriceDAO.findAll();
 
 		} catch (PersistenceException e) {
-			System.out.println(e);
 			throw new ServiceException(e.getMessage());
 		}
 		return productPriceList;
