@@ -183,7 +183,7 @@ public class ProductDAO{
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 
-			if (rs.next()) {
+			if (!rs.next()) {
 				throw new PersistenceException("Product not found");
 			}
 		} catch (SQLException e) {
