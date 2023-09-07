@@ -11,10 +11,6 @@ public class ProductEntity {
 	private String quantityType;
 	private boolean is_active;
 
-	public ProductEntity() {
-
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -94,7 +90,6 @@ public class ProductEntity {
 			} else {
 				return -1;
 			}
-//			 return ( this.getProduct_id() > o.getProduct_id()) ? 1: -1;
 		}
 	}
 

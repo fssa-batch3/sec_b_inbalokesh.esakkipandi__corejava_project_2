@@ -42,7 +42,6 @@ public class UserDAO implements UserInterface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -81,7 +80,6 @@ public class UserDAO implements UserInterface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -89,7 +87,7 @@ public class UserDAO implements UserInterface {
 		}
 		return user;
 	}
-	
+
 	/**
 	 * @return user
 	 * @param userPhoneNumber
@@ -120,7 +118,6 @@ public class UserDAO implements UserInterface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -153,7 +150,6 @@ public class UserDAO implements UserInterface {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e);
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -174,7 +170,6 @@ public class UserDAO implements UserInterface {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-//			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
@@ -229,7 +224,7 @@ public class UserDAO implements UserInterface {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 
-			if (rs.next() == false) {
+			if (!rs.next()) {
 				throw new PersistenceException("User not found");
 			}
 		} catch (SQLException e) {
@@ -256,7 +251,6 @@ public class UserDAO implements UserInterface {
 			ps.setInt(1, id);
 
 			ps.executeUpdate();
-			System.out.println("User has been deleted sucessfully");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -286,17 +280,15 @@ public class UserDAO implements UserInterface {
 			ps.setLong(1, number);
 
 			rs = ps.executeQuery();
-			
-			
-			if(rs.next() == false) {
+
+			if (!rs.next()) {
 				throw new PersistenceException("Invalid Login Credentials");
-			}
-			else{
-				if(!rs.getString("password").equals(password)) {
+			} else {
+				if (!rs.getString("password").equals(password)) {
 					throw new PersistenceException("Invalid Login Credentials");
 				}
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
@@ -324,8 +316,7 @@ public class UserDAO implements UserInterface {
 				userId = rs.getInt("id");
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-//	        throw new PersistenceException(e.getMessage());
+			e.printStackTrace();
 		} finally {
 			ConnectionUtil.close(conn, ps, rs);
 		}

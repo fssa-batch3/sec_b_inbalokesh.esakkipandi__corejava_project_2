@@ -43,7 +43,6 @@ public class ProductPriceDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -78,7 +77,6 @@ public class ProductPriceDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -109,10 +107,8 @@ public class ProductPriceDAO {
 
 			ps.executeUpdate();
 
-			System.out.println("Product price implemented Sucessfully");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps);
@@ -138,7 +134,6 @@ public class ProductPriceDAO {
 			ps.setTimestamp(1, updateDate);
 			ps.setInt(2, product_id);
 			ps.executeUpdate();
-			System.out.println("Price date updated");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

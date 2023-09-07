@@ -45,7 +45,6 @@ public class ProductDAO{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -87,7 +86,6 @@ public class ProductDAO{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -114,7 +112,7 @@ public class ProductDAO{
 			ps.setString(1, product.getName());
 			rs = ps.executeQuery();
 
-			if (rs.next() == true) {
+			if (rs.next()) {
 				throw new PersistenceException("Product already exist");
 			}
 
@@ -158,11 +156,9 @@ public class ProductDAO{
 			if(rs.next()) {
 				generatedId = rs.getInt(1);
 			}
-			System.out.println("Product has been created sucessfully");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);
@@ -187,7 +183,7 @@ public class ProductDAO{
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 
-			if (rs.next() == false) {
+			if (rs.next()) {
 				throw new PersistenceException("Product not found");
 			}
 		} catch (SQLException e) {
@@ -273,8 +269,7 @@ public class ProductDAO{
 	        	productId = rs.getInt("id");   
 	        }
 	    } catch (SQLException e) {
-	        System.out.println(e.getMessage());
-//	        throw new PersistenceException(e.getMessage());
+	    	e.printStackTrace();
 	    } finally {
 	        ConnectionUtil.close(conn, ps, rs);
 	    }

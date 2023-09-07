@@ -76,7 +76,6 @@ public abstract class UserEntity {
 			} else {
 				return -1;
 			}
-//			 return ( this.getId() > o.getId()) ? 1: -1;
 		}
 	}
 

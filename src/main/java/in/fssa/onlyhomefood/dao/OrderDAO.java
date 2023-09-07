@@ -20,16 +20,16 @@ public class OrderDAO {
 	 * @throws PersistenceException
 	 */
 	public void create(Order newOrder) throws PersistenceException {
-		
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
+
 		try {
 			String query = "INSERT INTO orders (quantity, total_price, delivery_time, order_status, created_by, address, product_id) VALUES (?,?,?,?,?,?,?)";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
-			
+
 			ps.setInt(1, newOrder.getQuantity());
 			ps.setInt(2, newOrder.getTotal_price());
 			ps.setString(3, newOrder.getDelivery_time().name());
@@ -37,59 +37,55 @@ public class OrderDAO {
 			ps.setInt(5, newOrder.getCreated_by());
 			ps.setString(6, newOrder.getAddress());
 			ps.setInt(7, newOrder.getProduct_id());
-			
+
 			ps.executeUpdate();
-			
-			System.out.println("Order created Sucessfully");
-			
-			
-		}catch (SQLException e) {
-				e.printStackTrace();
-				System.out.println(e.getMessage());
-				throw new PersistenceException(e.getMessage());
-			} finally {
-				ConnectionUtil.close(con, ps, rs);
-			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
 	}
+
 	/**
 	 * 
 	 * @return
 	 * @throws PersistenceException
 	 */
-	public Set<Order> findAll() throws PersistenceException{
-		
+	public Set<Order> findAll() throws PersistenceException {
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Set<Order> orderList = new HashSet<>();
-		
-		try {
-		String query = "SELECT id,quantity,total_price,delivery_time,order_status,created_by,address,product_id FROM orders";
-		con = ConnectionUtil.getConnection();
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			Order order = new Order();
-			order.setId(rs.getInt("id"));
-			order.setQuantity(rs.getInt("quantity"));
-			order.setTotal_price(rs.getInt("total_price"));
-			order.setDelivery_time(DeliveryTime.valueOf(rs.getString("delivery_time")));
-			order.setOrder_status(OrderStatus.valueOf((rs.getString("order_status"))));
-			order.setCreated_by(rs.getInt("created_by"));
-			order.setAddress(rs.getString("address"));
-			order.setProduct_id(rs.getInt("product_id"));
-			
-			orderList.add(order);
-		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-		System.out.println(e.getMessage());
-		throw new PersistenceException(e.getMessage());
 
-	} finally {
-		ConnectionUtil.close(con, ps, rs);
-	}
-		return orderList;	
+		try {
+			String query = "SELECT id,quantity,total_price,delivery_time,order_status,created_by,address,product_id FROM orders";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Order order = new Order();
+				order.setId(rs.getInt("id"));
+				order.setQuantity(rs.getInt("quantity"));
+				order.setTotal_price(rs.getInt("total_price"));
+				order.setDelivery_time(DeliveryTime.valueOf(rs.getString("delivery_time")));
+				order.setOrder_status(OrderStatus.valueOf((rs.getString("order_status"))));
+				order.setCreated_by(rs.getInt("created_by"));
+				order.setAddress(rs.getString("address"));
+				order.setProduct_id(rs.getInt("product_id"));
+
+				orderList.add(order);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersistenceException(e.getMessage());
+
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
+		return orderList;
 	}
 
 }
