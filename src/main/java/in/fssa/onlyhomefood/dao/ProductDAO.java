@@ -85,7 +85,6 @@ public class ProductDAO{
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 
 		} finally {
@@ -117,8 +116,6 @@ public class ProductDAO{
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println(e);
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			ConnectionUtil.close(con, ps, rs);

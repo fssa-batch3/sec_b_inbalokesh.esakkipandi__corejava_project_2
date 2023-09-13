@@ -69,16 +69,22 @@ public class ProductService {
 	public void createNewProduct(Product product) throws ValidationException, ServiceException {
 
 		int generatedId = -1;
-		Timestamp d = null;
+		Timestamp date = null;
 
 		try {
 			ProductDAO productDAO = new ProductDAO();
+			
 			ProductPriceService productPriceService = new ProductPriceService();
+			
 			ProductValidator.validate(product);
+			
 			productDAO.checkNameIsPresent(product);
+			
 			generatedId = productDAO.create(product);
-			d = productPriceService.getModifiedDate(generatedId);
-			productPriceService.createPrice(d, generatedId, product.getPrice());
+			
+			date = productPriceService.getModifiedDate(generatedId);
+			
+			productPriceService.createPrice(date, generatedId, product.getPrice());
 
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());

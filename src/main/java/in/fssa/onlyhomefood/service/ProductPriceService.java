@@ -60,17 +60,17 @@ public class ProductPriceService {
 	 * @throws ServiceException
 	 */
 	public Timestamp getModifiedDate(int product_id) throws ValidationException, ServiceException {
-		Timestamp d = null;
+		Timestamp date = null;
 		try {
 			ProductValidator.isIdValid(product_id);
 			ProductPriceDAO productPriceDAO = new ProductPriceDAO();
-			d = productPriceDAO.getDate(product_id);
+			date = productPriceDAO.getDate(product_id);
 
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());
 
 		}
-		return d;
+		return date;
 	}
 
 	/**
