@@ -14,6 +14,19 @@ public class IntUtil {
 			throw new ValidationException(inputName.concat(" cannot be zero or below zero"));
 		}
 	}
+	/**
+	 * 
+	 * @param size
+	 * @throws ValidationException
+	 */
+	public static void rejectIfInvalidSize(int size) throws ValidationException {
+		if (size < 0) {
+			throw new ValidationException("Size cannot be negative");
+		}
+		else if(size >= 10) {
+			throw new ValidationException("You have exceeded the limit");
+		}
+	}
 
 	/**
 	 * 

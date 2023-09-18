@@ -167,7 +167,7 @@ public class UserDAO implements UserInterface {
 			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());
 		} finally {
-			ConnectionUtil.close(con, ps);
+			ConnectionUtil.close(con, ps, rs);
 		}
 	}
 
