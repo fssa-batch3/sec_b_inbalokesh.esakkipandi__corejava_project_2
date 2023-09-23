@@ -13,11 +13,11 @@ import in.fssa.onlyhomefood.validator.AddressValidator;
 public class AddressService {
 	AddressDAO addressDAO = new AddressDAO();
 
-	public List<Address> getAllUserAddress(int userid) throws ServiceException, ValidationException {
+	public List<Address> getAllUserAddress(int userId) throws ServiceException, ValidationException {
 		List<Address> addressList = null;
 		try {
-			IntUtil.rejectIfInvalidId(userid, "User Id");
-			addressList = addressDAO.findAllById(userid);
+			IntUtil.rejectIfInvalidId(userId, "User Id");
+			addressList = addressDAO.findAllById(userId);
 		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
@@ -52,7 +52,7 @@ public class AddressService {
 				System.out.println(editAddress.getDefaultStatus());
 				addressDAO.create(editAddress);
 				addressDAO.update(addressId, false, false);
-			} else if (existAddress.getActive() == true) {
+			} else if (editAddress.getActive() == true) {
 				throw new ServiceException("Address already exist");
 			} else {
 				editAddress.setDefaultStatus(existAddress.getDefaultStatus());
@@ -114,6 +114,43 @@ public class AddressService {
 
 		}
 
+	}
+
+	public Address findAddressById(int addressId) throws ValidationException, ServiceException {
+		Address address = null;
+		IntUtil.rejectIfInvalidId(addressId, "Address Id");
+
+		try {
+			address = addressDAO.findById(addressId);
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
+		return address;
+	}
+
+	public Address findDefaultAddress(int userId) throws ValidationException, ServiceException {
+
+		int id = 0;
+		IntUtil.rejectIfInvalidId(userId, "User Id");
+		UserService userService = new UserService();
+		Address address = null;
+
+		userService.findUserById(userId);
+
+		try {
+			id = addressDAO.findDefaultAddress(userId);
+			IntUtil.rejectIfInvalidId(id, "Address Id");
+			address = addressDAO.findById(id);
+			if(address == null) {
+				throw new ServiceException("Address not found");
+			}
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
+
+		return address;
 	}
 
 }

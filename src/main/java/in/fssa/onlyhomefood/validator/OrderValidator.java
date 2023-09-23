@@ -1,12 +1,12 @@
 package in.fssa.onlyhomefood.validator;
 
-import in.fssa.onlyhomefood.dao.ProductDAO;
+import in.fssa.onlyhomefood.dao.AddressDAO;
 import in.fssa.onlyhomefood.dao.UserDAO;
 import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
+import in.fssa.onlyhomefood.model.Address;
 import in.fssa.onlyhomefood.model.Order;
 import in.fssa.onlyhomefood.util.IntUtil;
-import in.fssa.onlyhomefood.util.StringUtil;
 
 public class OrderValidator {
 	/**
@@ -20,35 +20,24 @@ public class OrderValidator {
 			throw new ValidationException(inp.concat(" must be below 10"));
 		}
 	}
+
 	/**
 	 * 
 	 * @param order
 	 * @throws ValidationException
 	 */
 	public static void validate(Order order) throws ValidationException {
-		
+
 		if (order == null) {
 			throw new ValidationException("Order cannot be null");
 		}
-		if (order.getDelivery_time() == null) {
-			throw new ValidationException("Delivery Time is not selected");
-		}
-		if (order.getOrder_status() == null) {
-			throw new ValidationException("Invalid Order status");
-		}
-		
+
 //		Validations
-		StringUtil.rejectIfInvalidString(order.getAddress(), "Address");
-		StringUtil.rejectIfInvalidAddress(order.getAddress());
-		IntUtil.rejectIfInvalidId(order.getQuantity(), "Quantity");
-		IntUtil.rejectIfInvalidId(order.getCreated_by(), "User Id");
-		IntUtil.rejectIfInvalidId(order.getTotal_price(), "Total Price");
-		IntUtil.rejectIfInvalidId(order.getProduct_id(), "Product Id");
-		
-//		Patterns
-		rejectIfInvalidQuanityOrder(order.getQuantity(), "Quantity");
-		
+		IntUtil.rejectIfInvalidId(order.getCreatedBy(), "User Id");
+		IntUtil.rejectIfInvalidId(order.getTotalPrice(), "Price");
+		IntUtil.rejectIfInvalidId(order.getDeliveryAddressId(), "Address Id");
 	}
+
 	/**
 	 * 
 	 * @param order
@@ -56,14 +45,16 @@ public class OrderValidator {
 	 */
 	public static void checkIdExist(Order order) throws ValidationException {
 		try {
-			ProductDAO productDAO = new ProductDAO();
-			productDAO.checkIdExists(order.getProduct_id());
 			UserDAO userDAO = new UserDAO();
-			userDAO.checkIdExists(order.getCreated_by());
+			userDAO.checkIdExists(order.getCreatedBy());
+			AddressDAO addressDAO = new AddressDAO();
+			Address address = addressDAO.findById(order.getDeliveryAddressId());
+			if (address == null) {
+				throw new ValidationException("Address not found");
+			}
 		} catch (PersistenceException e) {
 			throw new ValidationException(e.getMessage());
 		}
-		
 	}
 
 }

@@ -40,7 +40,7 @@ public class AddressDAO {
 				address.setState(rs.getString("state"));
 				address.setPinCode(rs.getInt("pin_code"));
 				address.setUserId(rs.getInt("user_id"));
-				address.setActive(rs.getBoolean("default_status"));
+				address.setDefaultStatus(rs.getBoolean("default_status"));
 				address.setActive(rs.getBoolean("is_active"));
 
 				addressList.add(address);
@@ -188,7 +188,6 @@ public class AddressDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				System.out.println("in");
 				Address foundAddress = new Address();
 				foundAddress.setId(rs.getInt("id"));
 				foundAddress.setName(rs.getString("user_name"));
@@ -228,7 +227,6 @@ public class AddressDAO {
 
 			if (rs.next()) {
 				addressId = rs.getInt("id");
-				System.out.println(addressId);
 			}
 
 		} catch (SQLException e) {

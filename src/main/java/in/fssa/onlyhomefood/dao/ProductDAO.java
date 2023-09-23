@@ -12,7 +12,7 @@ import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.util.ConnectionUtil;
 
-public class ProductDAO{
+public class ProductDAO {
 	/**
 	 * 
 	 * @return
@@ -40,7 +40,7 @@ public class ProductDAO{
 				product.setQuantityType(rs.getString("quantity_type"));
 				product.setImage(rs.getString("image"));
 				product.setIs_active(rs.getBoolean("is_active"));
-				
+
 				productList.add(product);
 			}
 		} catch (SQLException e) {
@@ -52,6 +52,7 @@ public class ProductDAO{
 		}
 		return productList;
 	}
+
 	/**
 	 * 
 	 * @param productId
@@ -60,7 +61,7 @@ public class ProductDAO{
 	 */
 //	Find products by id
 	public Product findById(int productId) throws PersistenceException {
-		
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -92,6 +93,7 @@ public class ProductDAO{
 		}
 		return product;
 	}
+
 	/**
 	 * 
 	 * @param product
@@ -99,11 +101,11 @@ public class ProductDAO{
 	 */
 //	Check whether same name is present
 	public void checkNameIsPresent(Product product) throws PersistenceException {
-		
+
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
+
 		try {
 			String query = "SELECT 1 FROM products WHERE name=?";
 			con = ConnectionUtil.getConnection();
@@ -121,6 +123,7 @@ public class ProductDAO{
 			ConnectionUtil.close(con, ps, rs);
 		}
 	}
+
 	/**
 	 * 
 	 * @param newProduct
@@ -134,7 +137,7 @@ public class ProductDAO{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int generatedId = -1;
-		
+
 		try {
 			String query = "INSERT INTO products (name, type, quantity, quantity_type, image) VALUES (?,?,?,?,?)";
 			con = ConnectionUtil.getConnection();
@@ -147,10 +150,10 @@ public class ProductDAO{
 			ps.setString(5, newProduct.getImage());
 
 			ps.executeUpdate();
-			
+
 			rs = ps.getGeneratedKeys();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				generatedId = rs.getInt(1);
 			}
 
@@ -161,6 +164,7 @@ public class ProductDAO{
 		}
 		return generatedId;
 	}
+
 	/**
 	 * 
 	 * @param id
@@ -184,10 +188,11 @@ public class ProductDAO{
 			}
 		} catch (SQLException e) {
 			throw new PersistenceException(e.getMessage());
-		}  finally {
+		} finally {
 			ConnectionUtil.close(con, ps, rs);
 		}
 	}
+
 	/**
 	 * 
 	 * @param id
@@ -219,6 +224,7 @@ public class ProductDAO{
 			ConnectionUtil.close(con, ps);
 		}
 	}
+
 	/**
 	 * 
 	 * @param id
@@ -244,28 +250,29 @@ public class ProductDAO{
 			ConnectionUtil.close(con, ps);
 		}
 	}
+
 	/**
 	 * 
 	 * @return
 	 */
 	public int getLastUpdatedUserId() {
-	    Connection conn = null;
-	    PreparedStatement ps = null;
-	    ResultSet rs = null;
-	    int productId = 0;
-	    try {
-	        String query = "SELECT id FROM products WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1";
-	        conn = ConnectionUtil.getConnection();
-	        ps = conn.prepareStatement(query);
-	        rs = ps.executeQuery();
-	        if (rs.next()) {
-	        	productId = rs.getInt("id");   
-	        }
-	    } catch (SQLException e) {
-	    	e.printStackTrace();
-	    } finally {
-	        ConnectionUtil.close(conn, ps, rs);
-	    }
-	    return productId;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int productId = 0;
+		try {
+			String query = "SELECT id FROM products WHERE is_active = 1 ORDER BY created_at DESC LIMIT 1";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				productId = rs.getInt("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(conn, ps, rs);
+		}
+		return productId;
 	}
 }

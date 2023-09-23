@@ -264,7 +264,7 @@ public class UserDAO implements UserInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT password FROM users WHERE phone_number = ?";
+			String query = "SELECT password FROM users WHERE phone_number = ? AND is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 

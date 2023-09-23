@@ -19,12 +19,12 @@ public class IntUtil {
 	 * @param size
 	 * @throws ValidationException
 	 */
-	public static void rejectIfInvalidSize(int size) throws ValidationException {
-		if (size < 0) {
-			throw new ValidationException("Size cannot be negative");
+	public static void rejectIfInvalidSize(int input, String inputName) throws ValidationException {
+		if (input < 0) {
+			throw new ValidationException(inputName.concat(" cannot be negative"));
 		}
-		else if(size >= 10) {
-			throw new ValidationException("You have exceeded the limit");
+		else if(input >= 10) {
+			throw new ValidationException(inputName.concat(" limit is exceeded"));
 		}
 	}
 

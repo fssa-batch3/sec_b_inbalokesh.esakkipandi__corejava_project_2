@@ -60,7 +60,7 @@ public class AddressValidator {
 			int size = userAddressList.size(); // Getting the size of the usersAddress
 
 			int addressExistId = addressDAO.findAddressExist(address);
-			IntUtil.rejectIfInvalidSize(size); // Size should not be negative and also above the the limit 10
+			IntUtil.rejectIfInvalidSize(size, "Address"); // Size should not be negative and also above the the limit 10
 
 			if (addressExistId == 0) { // Checking whether the address already exists for the user
 				if (size == 0) { // Checking the user in creating address for the first time
@@ -113,6 +113,5 @@ public class AddressValidator {
 			throw new ValidationException(e.getMessage());
 		}
 	}
-	
 
 }

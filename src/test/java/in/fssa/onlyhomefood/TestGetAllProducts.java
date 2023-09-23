@@ -12,22 +12,22 @@ import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.Product;
 import in.fssa.onlyhomefood.service.ProductService;
 
-
 public class TestGetAllProducts {
 //	Test Get all products
 	@Test
 	public void testGetAllProducts() {
-		
+
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
 			Set<Product> products = productService.getAllProducts();
-			
-			for(Product p : products) {
+
+			for (Product p : products) {
 				System.out.println(p);
 			}
-			
+
 		});
 	}
+
 //	Test get product with ID
 	@Test
 	public void testFindProductWithValidInput() {
@@ -37,7 +37,7 @@ public class TestGetAllProducts {
 			System.out.println(productService.findProductById(3));
 		});
 	}
-	
+
 	// Id is Invalid
 	@Test
 	public void testFindProductWithInvalidId() {
@@ -51,7 +51,7 @@ public class TestGetAllProducts {
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
-	
+
 	// Id check
 	@Test
 	public void testUserWithCheckIdPresent() {
@@ -65,6 +65,5 @@ public class TestGetAllProducts {
 		String receivedMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(receivedMessage));
 	}
-	
 
 }
