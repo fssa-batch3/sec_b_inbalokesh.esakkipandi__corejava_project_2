@@ -25,6 +25,18 @@ public class AddressService {
 		return addressList;
 	}
 
+	public List<Address> getAllUserAddresses(int userId) throws ServiceException, ValidationException {
+		List<Address> addressList = null;
+		try {
+			IntUtil.rejectIfInvalidId(userId, "User Id");
+			addressList = addressDAO.findAllByUserId(userId);
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
+		return addressList;
+	}
+
 	public void createNewAddress(Address newAddress) throws ServiceException, ValidationException {
 
 		AddressValidator.validate(newAddress);
@@ -142,7 +154,7 @@ public class AddressService {
 			id = addressDAO.findDefaultAddress(userId);
 			IntUtil.rejectIfInvalidId(id, "Address Id");
 			address = addressDAO.findById(id);
-			if(address == null) {
+			if (address == null) {
 				throw new ServiceException("Address not found");
 			}
 		} catch (PersistenceException e) {

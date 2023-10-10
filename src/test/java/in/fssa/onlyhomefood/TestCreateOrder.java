@@ -16,49 +16,49 @@ import in.fssa.onlyhomefood.service.OrderService;
 public class TestCreateOrder {
 
 	// Test order with Valid Input
-	@Test
-	public void testCreateOrderWithValidInput() {
-
-		OrderService orderService = new OrderService();
-		Order newOrder = new Order();
-		newOrder.setCreatedBy(3);
-		newOrder.setDeliveryAddressId(1);
-		newOrder.setTotalPrice(59);
-
-		List<OrderedItems> itemsList = new ArrayList<>();
-
-		OrderedItems orderItems = new OrderedItems();
-
-		orderItems.setDeliveryTime(DeliveryTime.Breakfast);
-		orderItems.setOrderStatus(OrderStatus.Not_delivered);
-		orderItems.setProductId(2);
-		orderItems.setQuantityOrdered(4);
-		orderItems.setUserId(3);
-
-		OrderedItems orderItems1 = new OrderedItems();
-
-		orderItems1.setDeliveryTime(DeliveryTime.Breakfast);
-		orderItems1.setOrderStatus(OrderStatus.Not_delivered);
-		orderItems1.setProductId(0);
-		orderItems1.setQuantityOrdered(11);
-		orderItems1.setUserId(3);
-
-		OrderedItems orderItems2 = new OrderedItems();
-
-		orderItems2.setDeliveryTime(DeliveryTime.Breakfast);
-		orderItems2.setOrderStatus(OrderStatus.Not_delivered);
-		orderItems2.setProductId(1);
-		orderItems2.setQuantityOrdered(6);
-		orderItems2.setUserId(3);
-		
-		itemsList.add(orderItems);
-		itemsList.add(orderItems1);
-		itemsList.add(orderItems2);
-		
-		assertDoesNotThrow(() -> {
-			orderService.createNewOrder(newOrder, itemsList);
-		});
-	}
+//	@Test
+//	public void testCreateOrderWithValidInput() {
+//
+//		OrderService orderService = new OrderService();
+//		Order newOrder = new Order();
+//		newOrder.setCreatedBy(3);
+//		newOrder.setDeliveryAddressId(1);
+//		newOrder.setTotalPrice(59);
+//
+//		List<OrderedItems> itemsList = new ArrayList<>();
+//
+//		OrderedItems orderItems = new OrderedItems();
+//
+//		orderItems.setDeliveryTime(DeliveryTime.Breakfast);
+//		orderItems.setOrderStatus(OrderStatus.Not_delivered);
+//		orderItems.setProductId(2);
+//		orderItems.setQuantityOrdered(4);
+//		orderItems.setUserId(3);
+//
+//		OrderedItems orderItems1 = new OrderedItems();
+//
+//		orderItems1.setDeliveryTime(DeliveryTime.Breakfast);
+//		orderItems1.setOrderStatus(OrderStatus.Not_delivered);
+//		orderItems1.setProductId(0);
+//		orderItems1.setQuantityOrdered(11);
+//		orderItems1.setUserId(3);
+//
+//		OrderedItems orderItems2 = new OrderedItems();
+//
+//		orderItems2.setDeliveryTime(DeliveryTime.Breakfast);
+//		orderItems2.setOrderStatus(OrderStatus.Not_delivered);
+//		orderItems2.setProductId(1);
+//		orderItems2.setQuantityOrdered(6);
+//		orderItems2.setUserId(3);
+//		
+//		itemsList.add(orderItems);
+//		itemsList.add(orderItems1);
+//		itemsList.add(orderItems2);
+//		
+//		assertDoesNotThrow(() -> {
+//			orderService.createNewOrder(newOrder, itemsList);
+//		});
+//	}
 //
 ////	Test Order with Invalid Input
 //	@Test

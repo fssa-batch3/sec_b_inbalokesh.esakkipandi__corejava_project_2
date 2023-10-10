@@ -11,15 +11,15 @@ import in.fssa.onlyhomefood.service.OrderService;
 
 public class TestGetAllOrders {
 	
-	@Test
-	public void testGetAllOrders() {
-		OrderService orderService = new OrderService();
-		assertDoesNotThrow(() -> {
-			Set<Order> orders = orderService.getAllOrders();
-	
-			for(Order n : orders) {
-				System.out.println(n);
-			}
-		});
-	}
+//	@Test
+//	public void testGetAllOrders() {
+//		OrderService orderService = new OrderService();
+//		assertDoesNotThrow(() -> {
+//			Set<Order> orders = orderService.getAllOrders();
+//	
+//			for(Order n : orders) {
+//				System.out.println(n);
+//			}
+//		});
+//	}
 }

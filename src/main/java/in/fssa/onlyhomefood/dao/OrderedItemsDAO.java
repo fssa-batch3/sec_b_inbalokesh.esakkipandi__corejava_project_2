@@ -85,19 +85,19 @@ public class OrderedItemsDAO {
 		}
 	}
 
-	public void update(int id, OrderStatus status) throws PersistenceException {
+	public void update(int orderId, OrderStatus status) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		try {
-			String query = "UPDATE ordered_items SET ordered_status = ? WHERE id = ?";
+			String query = "UPDATE ordered_items SET order_status = ? WHERE order_id = ?";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
 			ps.setString(1, status.name());
-			ps.setInt(2, id);
-
+			ps.setInt(2, orderId);
+			
 			ps.executeUpdate();
 
 		} catch (SQLException e) {

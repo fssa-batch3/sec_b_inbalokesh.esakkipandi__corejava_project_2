@@ -1,5 +1,6 @@
 package in.fssa.onlyhomefood.service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 
 import in.fssa.onlyhomefood.dao.UserDAO;
@@ -8,6 +9,7 @@ import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.User;
 import in.fssa.onlyhomefood.util.IntUtil;
+import in.fssa.onlyhomefood.util.PasswordUtil;
 import in.fssa.onlyhomefood.util.StringUtil;
 import in.fssa.onlyhomefood.validator.UserValidator;
 
@@ -81,9 +83,10 @@ public class UserService {
 
 		try {
 			UserValidator.validate(newUser);
+			newUser.setPassword(PasswordUtil.encryptPassword(newUser.getPassword()));
 			UserDAO userDAO = new UserDAO();
 			userDAO.create(newUser);
-		} catch (PersistenceException e) {
+		} catch (PersistenceException | NoSuchAlgorithmException e) {
 			throw new ServiceException(e.getMessage());
 		}
 	}
@@ -134,7 +137,33 @@ public class UserService {
 			StringUtil.rejectIfInvalidPassword(password);
 
 			UserDAO newUserDAO = new UserDAO();
-			newUserDAO.checkUserCredentials(number, password);
+
+			User user = newUserDAO.findByPhoneNumber(number);
+
+			if (user == null) {
+				throw new ServiceException("Invalid Login Credentials");
+			}
+
+			String hashPassword = user.getPassword();
+
+			int firstIndex = hashPassword.indexOf('$'); // Find the index of the first "$"
+			int secondIndex = hashPassword.indexOf('$', firstIndex + 1); // Find the index of the second "$" starting
+																			// from the position after the first one
+
+			if (firstIndex != -1 && secondIndex != -1) {
+
+				String salt = hashPassword.substring(firstIndex + 1, secondIndex); // Extract the substring between the
+																					// two "$" characters
+
+				password = PasswordUtil.checkPass(password, salt);
+
+				String genPass = "$" + salt + "$" + password;
+
+				newUserDAO.checkUserCredentials(number, genPass);
+
+			} else {
+				System.out.println("The input string does not contain the expected format.");
+			}
 
 		} catch (PersistenceException e) {
 			throw new ServiceException(e.getMessage());

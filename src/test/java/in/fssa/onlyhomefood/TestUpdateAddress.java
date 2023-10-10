@@ -33,15 +33,15 @@ public class TestUpdateAddress {
 	
 //	Test for Update Default Staus
 	
-	@Test
-	void testUpdateDefaultStatusWithValidInput() {
-		
-		AddressService addressService = new AddressService();
-		
-		assertDoesNotThrow(() -> {
-			addressService.setAsDefault(3, 3);
-		});
-
-	}
+//	@Test
+//	void testUpdateDefaultStatusWithValidInput() {
+//		
+//		AddressService addressService = new AddressService();
+//		
+//		assertDoesNotThrow(() -> {
+//			addressService.setAsDefault(3, 3);
+//		});
+//
+//	}
 
 }

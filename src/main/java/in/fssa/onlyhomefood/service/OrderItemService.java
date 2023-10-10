@@ -64,18 +64,17 @@ public class OrderItemService {
 		}
 	}
 
-	public void updateStatus(int id, OrderStatus status) throws ValidationException, ServiceException {
+	public void updateStatus(int orderId, OrderStatus status) throws ValidationException, ServiceException {
 
 		OrderedItemsDAO orderItemsDAO = new OrderedItemsDAO();
 
 		try {
-			IntUtil.rejectIfInvalidId(id, "Item Id");
-			orderItemsDAO.update(id, status);
-			;
+			IntUtil.rejectIfInvalidId(orderId, "Order Id");
+			orderItemsDAO.update(orderId, status);
 		} catch (PersistenceException e) {
 			e.printStackTrace();
 			throw new ServiceException(e.getMessage());
 		}
 	}
-	
+
 }

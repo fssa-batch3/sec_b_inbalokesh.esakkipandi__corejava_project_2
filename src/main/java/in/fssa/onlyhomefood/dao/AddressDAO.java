@@ -54,6 +54,47 @@ public class AddressDAO {
 		return addressList;
 	}
 
+	public List<Address> findAllByUserId(int user_id) throws PersistenceException {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Address> addressList = new ArrayList<>();
+
+		try {
+			String query = "SELECT id,user_name,phone_number,location,street_name,town_name,city,state,pin_code,"
+					+ "user_id,default_status,is_active FROM address WHERE user_id = ?";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			ps.setInt(1, user_id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Address address = new Address();
+				address.setId(rs.getInt("id"));
+				address.setName(rs.getString("user_name"));
+				address.setPhoneNumber(rs.getLong("phone_number"));
+				address.setLocation(rs.getString("location"));
+				address.setStreetName(rs.getString("street_name"));
+				address.setTownName(rs.getString("town_name"));
+				address.setCity(rs.getString("city"));
+				address.setState(rs.getString("state"));
+				address.setPinCode(rs.getInt("pin_code"));
+				address.setUserId(rs.getInt("user_id"));
+				address.setDefaultStatus(rs.getBoolean("default_status"));
+				address.setActive(rs.getBoolean("is_active"));
+
+				addressList.add(address);
+			}
+		} catch (SQLException e) {
+			throw new PersistenceException(e.getMessage());
+
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
+		return addressList;
+	}
+
 	public int findAddressExist(Address address) throws PersistenceException {
 
 		Connection con = null;

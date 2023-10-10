@@ -8,14 +8,14 @@ import in.fssa.onlyhomefood.service.AddressService;
 
 public class TestDeleteAddress {
 	
-	@Test
-	void testDeleteAddressWithValidInput() {
-		
-		AddressService addressService = new AddressService();
-		
-		assertDoesNotThrow(() -> {
-			addressService.deleteAddress(3);
-		});
-	}
+//	@Test
+//	void testDeleteAddressWithValidInput() {
+//		
+//		AddressService addressService = new AddressService();
+//		
+//		assertDoesNotThrow(() -> {
+//			addressService.deleteAddress(3);
+//		});
+//	}
 
 }

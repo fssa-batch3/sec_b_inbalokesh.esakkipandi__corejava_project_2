@@ -23,8 +23,8 @@ public class TestUpdateProduct {
 		updateProduct.setType("Veg");
 		updateProduct.setQuantity(1);
 		updateProduct.setPrice(18);
-		updateProduct.setQuantityType(random.generateRandomString(4));
-		updateProduct.setImage(random.generateRandomString(7));
+		updateProduct.setQuantityType("Chapathi");
+		updateProduct.setImage("https://iili.io/HgW5e7S.md.jpg");
 
 		assertDoesNotThrow(() -> {
 			productService.updateProduct(4, updateProduct);

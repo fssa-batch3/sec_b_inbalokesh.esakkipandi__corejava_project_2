@@ -176,19 +176,18 @@ public class UserDAO implements UserInterface {
 	 * @param updateUser
 	 * @throws PersistenceException
 	 */
-	public void update(int id, User updateUser) throws PersistenceException {
+	public void update(int id, User newUser) throws PersistenceException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 
 		try {
-			String query = "UPDATE users SET user_name = ?, password = ? WHERE id = ? AND is_active = 1";
+			String query = "UPDATE users SET user_name = ? WHERE id = ? AND is_active = 1";
 			con = ConnectionUtil.getConnection();
 			ps = con.prepareStatement(query);
 
-			ps.setString(1, updateUser.getName());
-			ps.setString(2, updateUser.getPassword());
-			ps.setInt(3, id);
+			ps.setString(1, newUser.getName());
+			ps.setInt(2, id);
 
 			ps.executeUpdate();
 
