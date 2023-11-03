@@ -155,8 +155,6 @@ public class AddressDAO {
 			ps.setBoolean(10, newAddress.getDefaultStatus());
 			ps.executeUpdate();
 
-			System.out.println("Address created sucessfully");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new PersistenceException(e.getMessage());

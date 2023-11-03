@@ -27,6 +27,21 @@ public class TestGetAllProducts {
 
 		});
 	}
+	
+//	Test Get all products
+	@Test
+	public void testGetAllProductsLimit() {
+
+		ProductService productService = new ProductService();
+		assertDoesNotThrow(() -> {
+			Set<Product> products = productService.getAllProductsWithLimit(8);
+
+			for (Product p : products) {
+				System.out.println(p);
+			}
+
+		});
+	}
 
 //	Test get product with ID
 	@Test

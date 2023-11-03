@@ -52,6 +52,47 @@ public class ProductDAO {
 		}
 		return productList;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws PersistenceException
+	 */
+//	Find all products
+	public Set<Product> findAllByLimit(int num) throws PersistenceException {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Set<Product> productList = new HashSet<>();
+
+		try {
+			String query = "SELECT id,name,type,quantity,quantity_type,image,is_active FROM products WHERE is_active = 1 LIMIT 8 OFFSET ?";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			ps.setInt(1, num);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Product product = new Product();
+				product.setId(rs.getInt("id"));
+				product.setName(rs.getString("name"));
+				product.setType(rs.getString("type"));
+				product.setQuantity(rs.getInt("quantity"));
+				product.setQuantityType(rs.getString("quantity_type"));
+				product.setImage(rs.getString("image"));
+				product.setIs_active(rs.getBoolean("is_active"));
+
+				productList.add(product);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new PersistenceException(e.getMessage());
+
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
+		}
+		return productList;
+	}
 
 	/**
 	 * 

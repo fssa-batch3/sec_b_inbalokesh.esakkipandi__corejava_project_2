@@ -67,8 +67,6 @@ public class OrderService {
 				orderItemService.createOrderedItems(itemsList);
 			}
 			
-			System.out.println("Order Created Successfully");
-
 		} catch (PersistenceException e) {
 			
 			throw new ServiceException(e.getMessage());

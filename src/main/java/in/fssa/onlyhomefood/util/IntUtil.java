@@ -23,7 +23,7 @@ public class IntUtil {
 		if (input < 0) {
 			throw new ValidationException(inputName.concat(" cannot be negative"));
 		}
-		else if(input >= 10) {
+		else if(input > 10) {
 			throw new ValidationException(inputName.concat(" limit is exceeded"));
 		}
 	}

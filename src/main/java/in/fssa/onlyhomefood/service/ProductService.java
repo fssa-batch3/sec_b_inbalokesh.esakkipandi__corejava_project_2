@@ -9,6 +9,7 @@ import in.fssa.onlyhomefood.exception.PersistenceException;
 import in.fssa.onlyhomefood.exception.ServiceException;
 import in.fssa.onlyhomefood.exception.ValidationException;
 import in.fssa.onlyhomefood.model.Product;
+import in.fssa.onlyhomefood.util.IntUtil;
 import in.fssa.onlyhomefood.validator.ProductValidator;
 
 public class ProductService {
@@ -24,6 +25,31 @@ public class ProductService {
 			ProductDAO productDAO = new ProductDAO();
 			ProductPriceDAO priceDAO = new ProductPriceDAO();
 			productList = productDAO.findAll();
+
+			for (Product list : productList) {
+				int price = priceDAO.getPrice(list.getId());
+				list.setPrice(price);
+			}
+
+		} catch (PersistenceException e) {
+			throw new ServiceException(e.getMessage());
+		}
+		return productList;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 * @throws ValidationException 
+	 */
+	public Set<Product> getAllProductsWithLimit(int num) throws ServiceException, ValidationException {
+
+		Set<Product> productList = null;
+		try {
+			ProductDAO productDAO = new ProductDAO();
+			ProductPriceDAO priceDAO = new ProductPriceDAO();
+			productList = productDAO.findAllByLimit(num);
 
 			for (Product list : productList) {
 				int price = priceDAO.getPrice(list.getId());

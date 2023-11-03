@@ -21,7 +21,7 @@ public class TestUpdateProduct {
 		Product updateProduct = new Product();
 		updateProduct.setName("Dosa");
 		updateProduct.setType("Veg");
-		updateProduct.setQuantity(1);
+		updateProduct.setQuantity(3);
 		updateProduct.setPrice(18);
 		updateProduct.setQuantityType("Chapathi");
 		updateProduct.setImage("https://iili.io/HgW5e7S.md.jpg");
